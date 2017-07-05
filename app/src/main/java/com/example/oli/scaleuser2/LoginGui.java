@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
@@ -51,6 +52,7 @@ public class LoginGui extends AppCompatActivity implements TextWatcher,
         editor = sharedPreferences.edit();
 
         user_name = (EditText) findViewById(R.id.username);
+        user_name.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         passwd = (EditText) findViewById(R.id.password);
         rem_userpass = (CheckBox)findViewById(R.id.cb_remember);
 
@@ -155,6 +157,10 @@ public class LoginGui extends AppCompatActivity implements TextWatcher,
         final TextView groesseOut = (TextView) alertLayout.findViewById(R.id.groesseCm);
         final CheckBox cbShowPassword = (CheckBox) alertLayout.findViewById(R.id.cb_show_password);
         final LoginHelper loginhelper = new LoginHelper(this);
+
+        etName.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        etUsername.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+
 
 
         int progress = 150;
