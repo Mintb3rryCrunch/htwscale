@@ -31,6 +31,13 @@
         android:hint="Password"
         android:inputType="textPassword" />
 
+    <CheckBox
+        android:id="@+id/cb_remember"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Remember Login" />
+
     <Button
         android:id="@+id/login"
         android:layout_width="172dp"
