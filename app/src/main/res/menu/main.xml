@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+   <item
+        android:id="@+id/update_data"
+        android:icon="@mipmap/update_data"
+        android:title="Bluetooth Status"
+        app:showAsAction="ifRoom"
+        tools:ignore="HardcodedText" />
+
+
+    <item
+        android:id="@+id/action_bluetooth_status"
+        android:icon="@mipmap/bluetooth_disabled"
+        android:title="Bluetooth Status"
+        app:showAsAction="ifRoom"
+        tools:ignore="HardcodedText" />
+
+
+
+</menu>
