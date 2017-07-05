@@ -30,7 +30,7 @@ import android.widget.Toast;
 public class LoginGui extends AppCompatActivity implements TextWatcher,
         CompoundButton.OnCheckedChangeListener {
     public EditText user_name, passwd;
-    public static String login_username;
+    public static String login_username;//benutzer daten
     public static ProgressDialog loading;
 
     private CheckBox rem_userpass;
