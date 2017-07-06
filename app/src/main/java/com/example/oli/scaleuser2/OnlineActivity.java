@@ -50,7 +50,7 @@ import java.net.URLEncoder;
  */
 
 public class OnlineActivity extends AppCompatActivity {
-    private static TextView status, txtName, txtGroesse, txtGewicht, txtUsername;
+    private static TextView status, txtName, txtGroesse, txtGewicht, txtUsername, txtBMI;
     private  static ProgressDialog loading;
 
     private static String user_id, name, username, groesse, gewicht;
@@ -63,12 +63,11 @@ public class OnlineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_online);
 
-        status = (TextView) findViewById(R.id.status);
 
         txtName = (TextView) findViewById(R.id.nameOut);
         txtGroesse = (TextView) findViewById(R.id.groesseOut);
         txtGewicht = (TextView) findViewById(R.id.gewichtOut);
-        txtUsername = (TextView) findViewById(R.id.usernameOut);
+        txtBMI = (TextView) findViewById(R.id.BMIOut);
 
         getJson();
         checkBtPermissions();
@@ -102,7 +101,8 @@ public class OnlineActivity extends AppCompatActivity {
                 txtName.setText(name);
                 txtGroesse.setText(groesse);
                 txtGewicht.setText(gewicht);
-                txtUsername.setText(username);
+
+                BMI_Rechner("88", groesse);
 
             loading.dismiss();
 
@@ -110,6 +110,22 @@ public class OnlineActivity extends AppCompatActivity {
         {
             e.printStackTrace();
         }
+    }
+
+    static void BMI_Rechner(String weight, String height)
+    {
+        double calc_weight = Double.parseDouble(weight);
+        double calc_height = Double.parseDouble(height) /100;
+
+        double BMI = calc_weight / (calc_height*calc_height);
+
+        BMI = (double)Math.round(BMI * 10) / 10;
+
+        txtBMI.setText(Double.toString(BMI));
+
+
+
+
     }
 
     public void add_weight() {
