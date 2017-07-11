@@ -53,7 +53,7 @@ public class OnlineActivity extends AppCompatActivity {
     private static TextView status, txtName, txtGroesse, txtGewicht, txtUsername, txtBMI;
     private  static ProgressDialog loading;
 
-    private static String user_id, name, username, groesse, gewicht;
+    private static String user_id, name, username, groesse, gewicht, bmi;
 
     public static MenuItem bluetoothStatus, uploadData;
     public static int bluetoothStatusIcon = R.mipmap.bluetooth_disabled, uploadDataIcon = R.mipmap.update_data;
@@ -96,13 +96,13 @@ public class OnlineActivity extends AppCompatActivity {
                 name = JO.getString("name");
                 groesse = JO.getString("groesse");
                 gewicht = JO.getString("gewicht");
+                bmi = JO.getString("bmi");
                 username = JO.getString("username");
 
                 txtName.setText(name);
                 txtGroesse.setText(groesse);
                 txtGewicht.setText(gewicht);
-
-                BMI_Rechner(gewicht, groesse);
+                txtBMI.setText(bmi);
 
             loading.dismiss();
 
@@ -121,7 +121,9 @@ public class OnlineActivity extends AppCompatActivity {
 
         BMI = (float)Math.round(BMI * 10) / 10;
 
-        txtBMI.setText(Float.toString(BMI));
+        bmi = Float.toString(BMI);
+
+        txtBMI.setText(bmi);
 
 
 
@@ -203,7 +205,7 @@ public class OnlineActivity extends AppCompatActivity {
         else if (id == R.id.update_data){
             String type = "updateData";
             OnlineHelper onlineHelper = new OnlineHelper(this);
-            onlineHelper.execute(type, user_id, gewicht);
+            onlineHelper.execute(type, user_id, gewicht, bmi);
             uploadData.setIcon(getResources().getDrawable(R.mipmap.data_update));
         }
 

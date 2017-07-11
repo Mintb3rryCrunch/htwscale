@@ -78,6 +78,7 @@ class OnlineHelper extends AsyncTask<String, Void, String>
                 try {
                     String user_id = params[1];
                     String gewicht = params[2];
+                    String bmi = params[3];
 
                     URL url = new URL(update_url);
                     HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -87,6 +88,7 @@ class OnlineHelper extends AsyncTask<String, Void, String>
                     OutputStream outputStream = httpURLConnection.getOutputStream();
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                     String post_data = URLEncoder.encode("gewicht","UTF-8")+"="+URLEncoder.encode(gewicht,"UTF-8")+"&"
+                            +URLEncoder.encode("bmi","UTF-8")+"="+URLEncoder.encode(bmi,"UTF-8")+"&"
                             +URLEncoder.encode("id","UTF-8")+"="+URLEncoder.encode(user_id,"UTF-8");
                     bufferedWriter.write(post_data);
                     bufferedWriter.flush();
