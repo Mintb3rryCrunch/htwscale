@@ -1,11 +1,9 @@
 package com.example.oli.scaleuser2;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -35,8 +33,12 @@ public class LoginHelper extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
         String type = params[0];
-        String login_url =      "http://10.9.43.127:80/webapp/login.php";
-        String register_url =   "http://10.9.43.127:80/webapp/register.php";
+        //String login_url =      "http://10.9.40.127:80/webapp/login.php";
+        //String register_url =   "http://10.9.40.127:80/webapp/register.php";
+        String login_url = "http://10.9.41.233/webapp/login.php";
+        String register_url = "http://10.9.41.233:80/webapp/register.php";
+        //String login_url = "http://192.168.0.15:80/webapp/login.php";
+        //String register_url = "http://192.168.0.15:80/webapp/register.php";
 
         if(type.equals("login")) {
             try {

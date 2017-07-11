@@ -1,31 +1,22 @@
 package com.example.oli.scaleuser2;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,27 +24,25 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+
+import lecho.lib.hellocharts.model.PieChartData;
+import lecho.lib.hellocharts.model.SliceValue;
+import lecho.lib.hellocharts.util.ChartUtils;
+import lecho.lib.hellocharts.view.PieChartView;
 
 /**
  * Created by Oli on 21.06.2017.
  */
 
 public class OnlineActivity extends AppCompatActivity {
-    private static TextView status, txtName, txtGroesse, txtGewicht, txtUsername;
+    private static TextView status, txtName, txtGroesse, txtGewicht, txtUsername, txtBmi;
     private  static ProgressDialog loading;
 
-    private static String user_id, name, username, groesse, gewicht;
+    private static PieChartView pieChartLast;
+
+    private static String user_id, name, username, groesse, gewicht, bmi;
 
     public static MenuItem bluetoothStatus, uploadData;
     public static int bluetoothStatusIcon = R.mipmap.bluetooth_disabled, uploadDataIcon = R.mipmap.update_data;
@@ -63,15 +52,20 @@ public class OnlineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_online);
 
-        status = (TextView) findViewById(R.id.status);
+        //status = (TextView) findViewById(R.id.status);
 
         txtName = (TextView) findViewById(R.id.nameOut);
         txtGroesse = (TextView) findViewById(R.id.groesseOut);
         txtGewicht = (TextView) findViewById(R.id.gewichtOut);
         txtUsername = (TextView) findViewById(R.id.usernameOut);
+        txtBmi = (TextView) findViewById(R.id.bmiOut);
+
+        pieChartLast = (PieChartView) findViewById(R.id.pieChartLast);
+        pieChartLast.setChartRotationEnabled(false);
 
         getJson();
         checkBtPermissions();
+        //updateLastPieChart();
 
     }
 
@@ -98,13 +92,16 @@ public class OnlineActivity extends AppCompatActivity {
                 groesse = JO.getString("groesse");
                 gewicht = JO.getString("gewicht");
                 username = JO.getString("username");
+                bmi = JO.getString("bmi");
 
                 txtName.setText(name);
                 txtGroesse.setText(groesse);
                 txtGewicht.setText(gewicht);
                 txtUsername.setText(username);
+                txtBmi.setText(bmi);
 
             loading.dismiss();
+            updateLastPieChart();
 
         }catch (JSONException e)
         {
@@ -116,7 +113,17 @@ public class OnlineActivity extends AppCompatActivity {
 
         gewicht = Float.toString(BluetoothMiScale.weightdata);
         txtGewicht.setText(gewicht);
+
+        updateLastPieChart();
+        get_bmi();
         //Toast.makeText(MainActivity.this, "Weightdata: " +weight, Toast.LENGTH_LONG).show();
+    }
+
+   public void get_bmi(){
+        gewicht = Float.toString(BluetoothMiScale.weightdata);
+        groesse = txtGroesse.getText().toString();
+        bmi = Float.toString(Math.round(Float.parseFloat(gewicht)/ ((Integer.parseInt(groesse) / 100.0f)*(Integer.parseInt(groesse) / 100.0f))));
+        txtBmi.setText(bmi);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -186,7 +193,7 @@ public class OnlineActivity extends AppCompatActivity {
         else if (id == R.id.update_data){
             String type = "updateData";
             OnlineHelper onlineHelper = new OnlineHelper(this);
-            onlineHelper.execute(type, user_id, gewicht);
+            onlineHelper.execute(type, user_id, gewicht, bmi);
             uploadData.setIcon(getResources().getDrawable(R.mipmap.data_update));
         }
 
@@ -250,6 +257,23 @@ public class OnlineActivity extends AppCompatActivity {
             if(permissionCheck != 0)
                 this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1001);
         }
+    }
+
+    private static void updateLastPieChart() {
+
+        List<SliceValue> arcValuesLast = new ArrayList<SliceValue>();
+
+        arcValuesLast.add(new SliceValue(1, ChartUtils.COLOR_ORANGE));
+
+        arcValuesLast.add(new SliceValue(1, ChartUtils.COLOR_BLUE));
+
+        arcValuesLast.add(new SliceValue(1, ChartUtils.COLOR_GREEN));
+
+        PieChartData pieChartData = new PieChartData(arcValuesLast);
+        pieChartData.setHasLabels(false);
+        pieChartData.setHasCenterCircle(true);
+        pieChartData.setCenterText1(gewicht);
+        pieChartLast.setPieChartData(pieChartData);
     }
 
 
