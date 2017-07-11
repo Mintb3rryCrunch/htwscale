@@ -31,12 +31,8 @@ class OnlineHelper extends AsyncTask<String, Void, String>
     }
     protected void onPreExecute()
     {
-        //json_url = "http://10.9.43.127:80/webapp/getData.php";
-        //update_url = "http://10.9.43.127:80/webapp/updateData.php";
-        json_url = "http://10.9.41.233:80/webapp/get_data.php";
-        //json_url = "http://192.168.0.15:80/webapp/get_data.php";
-        update_url = "http://10.9.41.233:80/webapp/update_data.php";
-        //update_url = "http://192.168.0.15:80/webapp/update_data.php";
+        json_url =      "http://10.9.43.127:80/webapp/getData.php";
+        update_url =    "http://10.9.43.127:80/webapp/updateData.php";
     }
 
     protected String doInBackground(String... params) {
@@ -82,7 +78,7 @@ class OnlineHelper extends AsyncTask<String, Void, String>
                 try {
                     String user_id = params[1];
                     String gewicht = params[2];
-                    String bmi  = params[3];
+                    String bmi = params[3];
 
                     URL url = new URL(update_url);
                     HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();

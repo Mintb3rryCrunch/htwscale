@@ -160,6 +160,11 @@ public class LoginGui extends AppCompatActivity implements TextWatcher,
         etUsername.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         etName.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 
+        etName.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        etUsername.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+
+
+
 
         int progress = 150;
         int progressMin = 120;
@@ -223,6 +228,7 @@ public class LoginGui extends AppCompatActivity implements TextWatcher,
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                loading = ProgressDialog.show(LoginGui.this, "Please Wait...",null,true,true);
                 String name = etName.getText().toString();
                 String groesse = groesseOut.getText().toString();
                 String username = etUsername.getText().toString();
