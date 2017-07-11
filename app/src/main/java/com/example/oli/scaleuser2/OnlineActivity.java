@@ -23,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -104,6 +105,7 @@ public class OnlineActivity extends AppCompatActivity {
                 txtGewicht.setText(gewicht);
                 txtBMI.setText(bmi);
 
+
             loading.dismiss();
 
         }catch (JSONException e)
@@ -112,7 +114,7 @@ public class OnlineActivity extends AppCompatActivity {
         }
     }
 
-    static void BMI_Rechner(String weight, String height)
+    void BMI_Rechner(String weight, String height)
     {
         float calc_weight = Float.parseFloat(weight);
         float calc_height = Float.parseFloat(height) /100;
@@ -124,6 +126,7 @@ public class OnlineActivity extends AppCompatActivity {
         bmi = Float.toString(BMI);
 
         txtBMI.setText(bmi);
+        txtBMI.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
 
 
 
@@ -134,6 +137,7 @@ public class OnlineActivity extends AppCompatActivity {
 
         gewicht = Float.toString(BluetoothMiScale.weightdata);
         txtGewicht.setText(gewicht);
+        txtGewicht.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
         //Toast.makeText(MainActivity.this, "Weightdata: " +weight, Toast.LENGTH_LONG).show();
         BMI_Rechner(gewicht, groesse);
     }
@@ -206,6 +210,10 @@ public class OnlineActivity extends AppCompatActivity {
             String type = "updateData";
             OnlineHelper onlineHelper = new OnlineHelper(this);
             onlineHelper.execute(type, user_id, gewicht, bmi);
+
+            txtBMI.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_out_right));
+            txtGewicht.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_out_right));
+
             uploadData.setIcon(getResources().getDrawable(R.mipmap.data_update));
         }
 
