@@ -1,28 +1,50 @@
 package com.example.oli.scaleuser2;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 
 /**
  * Created by Oli on 21.06.2017.
@@ -73,15 +95,16 @@ public class OnlineActivity extends AppCompatActivity {
             JSONObject JO = jsonArray.getJSONObject(0);
                 user_id = JO.getString("id");
                 name = JO.getString("name");
-                username = JO.getString("username");
                 groesse = JO.getString("groesse");
                 gewicht = JO.getString("gewicht");
                 bmi = JO.getString("bmi");
+                username = JO.getString("username");
 
                 txtName.setText(name);
                 txtGroesse.setText(groesse);
                 txtGewicht.setText(gewicht);
                 txtBMI.setText(bmi);
+
 
             loading.dismiss();
 
@@ -91,7 +114,7 @@ public class OnlineActivity extends AppCompatActivity {
         }
     }
 
-    static void BMI_Rechner(String weight, String height)
+    void BMI_Rechner(String weight, String height)
     {
         float calc_weight = Float.parseFloat(weight);
         float calc_height = Float.parseFloat(height) /100;
@@ -103,6 +126,7 @@ public class OnlineActivity extends AppCompatActivity {
         bmi = Float.toString(BMI);
 
         txtBMI.setText(bmi);
+        txtBMI.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
 
 
 
@@ -113,6 +137,7 @@ public class OnlineActivity extends AppCompatActivity {
 
         gewicht = Float.toString(BluetoothMiScale.weightdata);
         txtGewicht.setText(gewicht);
+        txtGewicht.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
         //Toast.makeText(MainActivity.this, "Weightdata: " +weight, Toast.LENGTH_LONG).show();
         BMI_Rechner(gewicht, groesse);
     }
@@ -185,6 +210,10 @@ public class OnlineActivity extends AppCompatActivity {
             String type = "updateData";
             OnlineHelper onlineHelper = new OnlineHelper(this);
             onlineHelper.execute(type, user_id, gewicht, bmi);
+
+            txtBMI.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_out_right));
+            txtGewicht.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_out_right));
+
             uploadData.setIcon(getResources().getDrawable(R.mipmap.data_update));
         }
 
