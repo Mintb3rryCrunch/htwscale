@@ -102,7 +102,7 @@ public class OnlineActivity extends AppCompatActivity {
                 txtGroesse.setText(groesse);
                 txtGewicht.setText(gewicht);
 
-                BMI_Rechner("88", groesse);
+                BMI_Rechner(gewicht, groesse);
 
             loading.dismiss();
 
@@ -114,14 +114,14 @@ public class OnlineActivity extends AppCompatActivity {
 
     static void BMI_Rechner(String weight, String height)
     {
-        double calc_weight = Double.parseDouble(weight);
-        double calc_height = Double.parseDouble(height) /100;
+        float calc_weight = Float.parseFloat(weight);
+        float calc_height = Float.parseFloat(height) /100;
 
-        double BMI = calc_weight / (calc_height*calc_height);
+        float BMI = calc_weight / (calc_height*calc_height);
 
-        BMI = (double)Math.round(BMI * 10) / 10;
+        BMI = (float)Math.round(BMI * 10) / 10;
 
-        txtBMI.setText(Double.toString(BMI));
+        txtBMI.setText(Float.toString(BMI));
 
 
 
@@ -133,6 +133,7 @@ public class OnlineActivity extends AppCompatActivity {
         gewicht = Float.toString(BluetoothMiScale.weightdata);
         txtGewicht.setText(gewicht);
         //Toast.makeText(MainActivity.this, "Weightdata: " +weight, Toast.LENGTH_LONG).show();
+        BMI_Rechner(gewicht, groesse);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

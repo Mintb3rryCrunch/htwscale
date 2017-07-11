@@ -36,7 +36,7 @@ public class LoginHelper extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
         String type = params[0];
         String login_url =      "http://10.9.43.127:80/webapp/login.php";
-        String register_url =   "http://10.9.43.127:80/webapp/register.php";
+        String register_url =   "http://10.9.43.127.23:80/webapp/register.php";
 
         if(type.equals("login")) {
             try {

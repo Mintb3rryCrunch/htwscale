@@ -163,6 +163,7 @@ public class LoginGui extends AppCompatActivity implements TextWatcher,
 
 
 
+
         int progress = 150;
         int progressMin = 120;
         int progressMax = 230;
@@ -225,6 +226,7 @@ public class LoginGui extends AppCompatActivity implements TextWatcher,
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                loading = ProgressDialog.show(LoginGui.this, "Please Wait...",null,true,true);
                 String name = etName.getText().toString();
                 String groesse = groesseOut.getText().toString();
                 String username = etUsername.getText().toString();

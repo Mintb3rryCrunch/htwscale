@@ -31,8 +31,8 @@ class OnlineHelper extends AsyncTask<String, Void, String>
     }
     protected void onPreExecute()
     {
-        json_url = "http://10.9.43.127:80/webapp/getData.php";
-        update_url = "http://10.9.43.127:80/webapp/updateData.php";
+        json_url =      "http://10.9.43.127:80/webapp/getData.php";
+        update_url =    "http://10.9.43.127:80/webapp/updateData.php";
     }
 
     protected String doInBackground(String... params) {
