@@ -123,7 +123,7 @@ public class LoginGui extends AppCompatActivity implements TextWatcher,
     }
 
     public void onOffline(View v){
-        final Intent intent = new Intent(LoginGui.this, MainActivity.class);
+        final Intent intent = new Intent(LoginGui.this, OfflineActivity.class);
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

@@ -1,32 +1,24 @@
 package com.example.oli.scaleuser2;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.animation.AnimationUtils;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.EditText;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,17 +26,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.util.ArrayList;
 
 /**
  * Created by Oli on 21.06.2017.
@@ -59,6 +41,9 @@ public class OnlineActivity extends AppCompatActivity {
     public static MenuItem bluetoothStatus, uploadData;
     public static int bluetoothStatusIcon = R.mipmap.bluetooth_disabled, uploadDataIcon = R.mipmap.update_data;
     private static boolean firstAppStart = true;
+
+    ArrayList<String> names = new ArrayList<>();
+    ArrayAdapter<String> adapter;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,9 +113,6 @@ public class OnlineActivity extends AppCompatActivity {
         txtBMI.setText(bmi);
         txtBMI.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
 
-
-
-
     }
 
     public void add_weight() {
@@ -144,7 +126,7 @@ public class OnlineActivity extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.main_online, menu);
 
         bluetoothStatus = menu.findItem(R.id.action_bluetooth_status);
         uploadData = menu.findItem(R.id.update_data);
@@ -250,7 +232,7 @@ public class OnlineActivity extends AppCompatActivity {
                     Log.d("OpenScale", "Bluetooth connection lost");
                     break;
                 case BluetoothCommunication.BT_NO_DEVICE_FOUND:
-                    setBluetoothStatusIcon(R.mipmap.bluetooth_connection_lost);
+                    setBluetoothStatusIcon(R.mipmap.bluetooth_disabled);
                     Toast.makeText(getApplicationContext(), "No Bluetooth device found", Toast.LENGTH_SHORT).show();
                     Log.d("OpenScale", "No Bluetooth device found");
                     break;
