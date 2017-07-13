@@ -43,6 +43,8 @@
         android:layout_width="172dp"
         android:layout_height="wrap_content"
         android:onClick="onLogin"
+        android:background="@drawable/button_green"
+        android:textColor="#FFFFFF"
         android:layout_marginTop="30dp"
         android:text="Login" />
 
@@ -50,6 +52,9 @@
         android:id="@+id/register"
         android:layout_width="172dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_green"
+        android:textColor="#FFFFFF"
         android:onClick="onRegister"
         android:text="Register" />
 
@@ -58,6 +63,8 @@
         android:layout_width="172dp"
         android:layout_height="wrap_content"
         android:onClick="onOffline"
+        android:background="@drawable/button_blue"
+        android:textColor="#FFFFFF"
         android:layout_marginTop="40dp"
         android:text="Offline Mode" />
 

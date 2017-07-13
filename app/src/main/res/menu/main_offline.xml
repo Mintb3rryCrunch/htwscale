@@ -13,7 +13,19 @@
 
     <item
         android:id="@+id/add_user"
-        android:title="Add User"
+        android:title="Create User"
+        app:showAsAction="never"
+        tools:ignore="HardcodedText" />
+
+    <item
+        android:id="@+id/update_user"
+        android:title="Update User"
+        app:showAsAction="never"
+        tools:ignore="HardcodedText" />
+
+    <item
+        android:id="@+id/delete_user"
+        android:title="Delete User"
         app:showAsAction="never"
         tools:ignore="HardcodedText" />
 

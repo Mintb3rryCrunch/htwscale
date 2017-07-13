@@ -46,7 +46,7 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
 {
 
     int progressValue;
-    private static MenuItem bluetoothStatus, addUser;
+    private static MenuItem bluetoothStatus, addUser, updateUser, deleteUser;
     private static int bluetoothStatusIcon = R.mipmap.bluetooth_disabled;
     private static boolean firstAppStart = true;
     UserDatabase myDb;
@@ -232,7 +232,7 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
 
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Register");
+        alert.setTitle("Create User");
         // this is set the view from XML inside AlertDialog
         alert.setView(alertLayout);
         // disallow cancel of AlertDialog on click of back button and outside touch
@@ -246,7 +246,7 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
             }
         });
 
-        alert.setPositiveButton("Register", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton("Create", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -285,12 +285,145 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
         dialog.show();
     }
 
+    public void UpdateUser()
+    {
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayout = inflater.inflate(R.layout.user_dialog, null);
+
+        final EditText etVorname     = (EditText) alertLayout.findViewById(et_vorname);
+        final EditText etNachname     = (EditText) alertLayout.findViewById(et_nachname);
+        final SeekBar groesseIn = (SeekBar) alertLayout.findViewById(R.id.groesseBar);
+        final TextView groesseOut = (TextView) alertLayout.findViewById(R.id.groesseCm);
+        final RadioGroup radioGroupGender = (RadioGroup) alertLayout.findViewById(R.id.radioGender);
+
+
+
+
+
+        int progress = 150;
+        int progressMin = 120;
+        int progressMax = 230;
+
+        groesseIn.setMax(progressMax);
+        groesseIn.setProgress(progress);
+
+        groesseOut.setText(Integer.toString(progress));
+
+
+        SeekBar.OnSeekBarChangeListener yourSeekBarListener = new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                //add code here
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                //add code here
+            }
+
+            @Override
+            public void onProgressChanged(SeekBar seekBark, int progress, boolean fromUser) {
+                progressValue = groesseIn.getProgress();
+                groesseOut.setText(Integer.toString(progressValue));
+            }
+        };
+        groesseIn.setOnSeekBarChangeListener(yourSeekBarListener);
+
+
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Update User");
+        // this is set the view from XML inside AlertDialog
+        alert.setView(alertLayout);
+        // disallow cancel of AlertDialog on click of back button and outside touch
+        alert.setCancelable(false);
+
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Toast.makeText(getBaseContext(), "Cancel clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        alert.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                String vorname = etVorname.getText().toString();
+                String nachname = etNachname.getText().toString();
+                String groesse = groesseOut.getText().toString();
+
+                int selectedId = radioGroupGender.getCheckedRadioButtonId();
+
+                String gender ="";
+                switch (selectedId) {
+                    case R.id.radioFemale:
+                        gender = "Weiblich";
+                        break;
+                    case R.id.radioMale:
+                        gender = "Männlich";
+                        break;
+                }
+
+                Cursor cursor = myDb.getAllUser2();
+
+                while (cursor.moveToNext()) {
+                    int rowNumber = Integer.parseInt(cursor.getString(6));
+                    int dbId = Integer.parseInt(cursor.getString(0));
+                    int spinnerId = spinner.getSelectedItemPosition();
+
+                    if (rowNumber == spinnerId) {
+                        boolean isUpdate = myDb.updateData(String.valueOf(dbId), vorname, nachname, gender, groesse);
+                        if (isUpdate == true) {
+                            Toast.makeText(OfflineActivity.this, "Data Updated", Toast.LENGTH_LONG).show();
+                            viewUser();
+                            updateSpinner();
+                        } else {
+                            Toast.makeText(OfflineActivity.this, "Data not Updated", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                }
+
+            }
+        });
+        AlertDialog dialog = alert.create();
+        dialog.show();
+    }
+
+    public void DeleteUser()
+    {
+        Cursor cursor = myDb.getAllUser2();
+
+        while (cursor.moveToNext()) {
+            int rowNumber = Integer.parseInt(cursor.getString(6));
+            int dbId = Integer.parseInt(cursor.getString(0));
+            int spinnerId = spinner.getSelectedItemPosition();
+
+            if (rowNumber == spinnerId) {
+                Integer isRowDeleted = myDb.deleteData(String.valueOf(dbId));
+                if (isRowDeleted > 0) {
+                    Toast.makeText(OfflineActivity.this, "User Deleted", Toast.LENGTH_LONG).show();
+                    updateSpinner();
+                    viewUser();
+                } else {
+                    Toast.makeText(OfflineActivity.this, "User not Deleted", Toast.LENGTH_LONG).show();
+                }
+            }
+
+        }
+    }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_offline, menu);
 
         bluetoothStatus = menu.findItem(R.id.action_bluetooth_status);
         addUser = menu.findItem(R.id.add_user);
+        updateUser = menu.findItem(R.id.update_user);
+        deleteUser = menu.findItem(R.id.delete_user);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -350,6 +483,32 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
         }
         else if (id == R.id.add_user){
             AddUser();
+        }
+        else if (id == R.id.update_user){
+            UpdateUser();
+
+        }
+        else if (id == R.id.delete_user){
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    switch (which){
+                        case DialogInterface.BUTTON_POSITIVE:
+                            DeleteUser();
+                            break;
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            //No button clicked
+                            break;
+                    }
+                }
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Delete User");
+            builder.setMessage("Are you Sure? You will lose all your Data from this User").setPositiveButton("Yes", dialogClickListener)
+                    .setNegativeButton("No", dialogClickListener).show();
         }
 
 

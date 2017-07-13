@@ -116,7 +116,7 @@ public class UserDatabase extends SQLiteOpenHelper {
 
         contentValues.put(COl_4,gender);
 
-        if (!TextUtils.isEmpty(height))
+        if (!height.contains("150"))
         {
             contentValues.put(COl_5, height);
         }
