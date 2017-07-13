@@ -15,7 +15,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".3"
-            android:text="Vorname:" />
+            android:text="Name:" />
 
         <EditText
             android:id="@+id/et_vorname"
@@ -36,7 +36,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".3"
-            android:text="Nachname:" />
+            android:text="Surname:" />
 
         <EditText
             android:id="@+id/et_nachname"
@@ -57,7 +57,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".3"
-            android:text="Geschlecht:" />
+            android:text="Gender:" />
 
         <RadioGroup
             android:id="@+id/radioGender"
@@ -69,14 +69,14 @@
                 android:id="@+id/radioFemale"
                 android:layout_width="96dp"
                 android:layout_height="30dp"
-                android:text="Weiblich" />
+                android:text="Female" />
 
             <RadioButton
                 android:id="@+id/radioMale"
                 android:layout_width="96dp"
                 android:layout_height="30dp"
                 android:checked="true"
-                android:text="Männlich" />
+                android:text="Male" />
 
         </RadioGroup>
 
@@ -94,7 +94,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".3"
-            android:text="Größe:" />
+            android:text="Height:" />
 
         <TextView
             android:layout_width="0dp"
