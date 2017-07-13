@@ -230,7 +230,7 @@ public class LoginGui extends AppCompatActivity implements TextWatcher,
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                loading = ProgressDialog.show(LoginGui.this, "Please Wait...",null,true,true);
+
                 String name = etVorname.getText().toString();
                 String nachname = etNachname.getText().toString();
                 String gender = "";
