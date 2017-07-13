@@ -37,7 +37,7 @@
             android:textColor="#FFFFFF"
             android:gravity="center"
             android:textAlignment="center"
-            android:text="sdfsdfs" />
+            android:text="" />
     </LinearLayout>
 
     <LinearLayout
@@ -59,7 +59,7 @@
             android:textColor="#FFFFFF"
             android:gravity="center"
             android:textAlignment="center"
-            android:text="sdfsdfs" />
+            android:text="" />
     </LinearLayout>
 
 
@@ -82,7 +82,7 @@
             android:textColor="#FFFFFF"
             android:gravity="center"
             android:textAlignment="center"
-            android:text="sdfsdfs" />
+            android:text="" />
 
     </LinearLayout>
 
