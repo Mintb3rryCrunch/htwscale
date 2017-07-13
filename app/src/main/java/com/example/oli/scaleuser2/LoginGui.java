@@ -18,9 +18,9 @@ import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Created by Oli on 21.06.2017.
@@ -148,19 +148,21 @@ public class LoginGui extends AppCompatActivity implements TextWatcher,
 
     public void onRegister(View v){
 
+
         LayoutInflater inflater = getLayoutInflater();
         View alertLayout = inflater.inflate(R.layout.register_dialog, null);
         final EditText etUsername = (EditText) alertLayout.findViewById(R.id.et_username);
         final EditText etPassword = (EditText) alertLayout.findViewById(R.id.et_password);
-        final EditText etName     = (EditText) alertLayout.findViewById(R.id.et_name);
+        final EditText etVorname     = (EditText) alertLayout.findViewById(R.id.et_name);
+        final EditText etNachname     = (EditText) alertLayout.findViewById(R.id.et_nachname);
+        final RadioGroup radioGroupGender = (RadioGroup) alertLayout.findViewById(R.id.radioGeschlecht);
         final SeekBar groesseIn = (SeekBar) alertLayout.findViewById(R.id.groesseBar);
         final TextView groesseOut = (TextView) alertLayout.findViewById(R.id.groesseCm);
         final CheckBox cbShowPassword = (CheckBox) alertLayout.findViewById(R.id.cb_show_password);
         final LoginHelper loginhelper = new LoginHelper(this);
-        etUsername.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        etName.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 
-        etName.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        etVorname.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        etNachname.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         etUsername.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 
 
@@ -229,7 +231,19 @@ public class LoginGui extends AppCompatActivity implements TextWatcher,
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 loading = ProgressDialog.show(LoginGui.this, "Please Wait...",null,true,true);
-                String name = etName.getText().toString();
+                String name = etVorname.getText().toString();
+                String nachname = etNachname.getText().toString();
+                String gender = "";
+                int selectedId = radioGroupGender.getCheckedRadioButtonId();
+
+                switch (selectedId) {
+                    case R.id.radioWeiblich:
+                        gender = "Female";
+                        break;
+                    case R.id.radioMännlich:
+                        gender = "Male";
+                        break;
+                }
                 String groesse = groesseOut.getText().toString();
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
@@ -237,7 +251,7 @@ public class LoginGui extends AppCompatActivity implements TextWatcher,
 
                 loading = ProgressDialog.show(LoginGui.this, "Please Wait...",null,true,true);
 
-                loginhelper.execute(type, name, username, password, groesse);
+                loginhelper.execute(type, name, nachname, gender, username, password, groesse);
             }
         });
         AlertDialog dialog = alert.create();

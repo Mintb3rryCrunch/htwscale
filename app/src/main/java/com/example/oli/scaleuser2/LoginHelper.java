@@ -35,8 +35,8 @@ public class LoginHelper extends AsyncTask<String, Void, String> {
         String type = params[0];
         //String login_url =      "http://10.9.40.127:80/webapp/login.php";
         //String register_url =   "http://10.9.40.127:80/webapp/register.php";
-        String login_url = "http://10.9.41.233:80/webapp/login.php";
-        String register_url = "http://10.9.41.233:80/webapp/register.php";
+        String login_url = "http://10.9.41.55:80/webapp/login.php";
+        String register_url = "http://10.9.41.55:80/webapp/register.php";
         //String login_url = "http://192.168.0.15:80/webapp/login.php";
         //String register_url = "http://192.168.0.15:80/webapp/register.php";
 
@@ -80,9 +80,11 @@ public class LoginHelper extends AsyncTask<String, Void, String> {
         if(type.equals("register")) {
             try {
                 String name = params[1];
-                String user_name = params[2];
-                String password = params[3];
-                String groesse = params[4];
+                String nachname = params[2];
+                String gender = params[3];
+                String user_name = params[4];
+                String password = params[5];
+                String groesse = params[6];
                 URL url = new URL(register_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
@@ -91,6 +93,8 @@ public class LoginHelper extends AsyncTask<String, Void, String> {
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                 String post_data = URLEncoder.encode("name","UTF-8")+"="+URLEncoder.encode(name,"UTF-8")+"&"
+                        +URLEncoder.encode("nachname","UTF-8")+"="+URLEncoder.encode(nachname,"UTF-8")+"&"
+                        +URLEncoder.encode("gender","UTF-8")+"="+URLEncoder.encode(gender,"UTF-8")+"&"
                         +URLEncoder.encode("user_name","UTF-8")+"="+URLEncoder.encode(user_name,"UTF-8")+"&"
                         +URLEncoder.encode("password","UTF-8")+"="+URLEncoder.encode(password,"UTF-8")+"&"
                         +URLEncoder.encode("groesse","UTF-8")+"="+URLEncoder.encode(groesse,"UTF-8");
