@@ -265,10 +265,10 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
 
                 switch (selectedId) {
                     case R.id.radioFemale:
-                        gender = "Weiblich";
+                        gender = "Female";
                         break;
                     case R.id.radioMale:
-                        gender = "Männlich";
+                        gender = "Male";
                         break;
                 }
 
@@ -359,10 +359,10 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
                 String gender ="";
                 switch (selectedId) {
                     case R.id.radioFemale:
-                        gender = "Weiblich";
+                        gender = "Female";
                         break;
                     case R.id.radioMale:
-                        gender = "Männlich";
+                        gender = "Male";
                         break;
                 }
 

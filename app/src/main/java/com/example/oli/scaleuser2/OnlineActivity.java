@@ -63,6 +63,12 @@ public class OnlineActivity extends AppCompatActivity {
         OnlineHelper onlineHelper = new OnlineHelper(this);
         onlineHelper.execute(type);
 
+        txtName.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
+        txtSurname.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
+        txtGender.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
+        txtGroesse.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
+        txtGewicht.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
+        txtBMI.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
 
     }
 
@@ -129,7 +135,7 @@ public class OnlineActivity extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.main_online, menu);
 
         bluetoothStatus = menu.findItem(R.id.action_bluetooth_status);
         uploadData = menu.findItem(R.id.update_data);
