@@ -172,6 +172,8 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
                 String height = cursor.getString(4);
                 String weight = cursor.getString(5);
 
+                //AUSGABE
+
                 txtNachname.setText(surname);
                 txtNachname.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
 
@@ -200,10 +202,6 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
         final SeekBar groesseIn = (SeekBar) alertLayout.findViewById(R.id.groesseBar);
         final TextView groesseOut = (TextView) alertLayout.findViewById(R.id.groesseCm);
         final RadioGroup radioGroupGender = (RadioGroup) alertLayout.findViewById(R.id.radioGender);
-
-
-
-
 
         int progress = 150;
         int progressMin = 120;
@@ -300,10 +298,6 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
         final SeekBar groesseIn = (SeekBar) alertLayout.findViewById(R.id.groesseBar);
         final TextView groesseOut = (TextView) alertLayout.findViewById(R.id.groesseCm);
         final RadioGroup radioGroupGender = (RadioGroup) alertLayout.findViewById(R.id.radioGender);
-
-
-
-
 
         int progress = 150;
         int progressMin = 120;
