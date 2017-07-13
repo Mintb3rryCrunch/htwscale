@@ -173,8 +173,13 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
                 String weight = cursor.getString(5);
 
                 txtNachname.setText(surname);
+                txtNachname.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
+
                 txtGeschlecht.setText(gender);
+                txtGeschlecht.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
+
                 txtGroesse.setText(height);
+                txtGroesse.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
 
                 txtGewicht.setText(weight);
                 txtGewicht.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
