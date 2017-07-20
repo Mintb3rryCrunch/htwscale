@@ -77,10 +77,34 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
 
         adduser = (Button) findViewById(R.id.add_user);
 
+        check_user();
         updateSpinner();
         viewUser();
         checkBtPermissions();
 
+    }
+
+    public void check_user(){
+
+        Cursor cursor = myDb.getAllUser2();
+        if(cursor.getCount() == 0) {
+
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    switch (which) {
+                        case DialogInterface.BUTTON_POSITIVE:
+                            AddUser();
+                            break;
+
+                    }
+                }
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("You need to Create a User to use this Application").setPositiveButton("Ok", dialogClickListener).show();
+        }
     }
 
     private void add_weight() {
