@@ -13,10 +13,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +35,7 @@ public class OnlineActivity extends AppCompatActivity {
     private static TextView status, txtName, txtSurname, txtGender, txtGroesse, txtGewicht, txtUsername, txtBMI;
     private  static ProgressDialog loading;
 
-    private static String user_id, name, surname, gender, username, groesse, gewicht, bmi;
+    public static String user_id, name, surname, gender, username, groesse, gewicht, bmi;
 
     public static MenuItem bluetoothStatus, uploadData;
     public static int bluetoothStatusIcon = R.mipmap.bluetooth_disabled, uploadDataIcon = R.mipmap.update_data;
@@ -43,6 +45,7 @@ public class OnlineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_online);
 
+        FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.myFAB);
 
         txtName = (TextView) findViewById(R.id.nameOut);
         txtSurname = (TextView) findViewById(R.id.surnameOut);
@@ -54,6 +57,10 @@ public class OnlineActivity extends AppCompatActivity {
         getJson();
         checkBtPermissions();
 
+    }
+    public void onTimeline(View v) {
+        final Intent intent = new Intent(OnlineActivity.this, TimelineActivity.class);
+        startActivity(intent);
     }
 
     private void getJson(){
@@ -104,6 +111,7 @@ public class OnlineActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
 
     void BMI_Rechner(String weight, String height)
     {
