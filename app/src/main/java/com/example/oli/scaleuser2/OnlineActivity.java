@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -34,7 +35,6 @@ public class OnlineActivity extends AppCompatActivity {
     private static TextView status, txtName, txtSurname, txtGender, txtGroesse, txtGewicht, txtUsername, txtBMI;
     private  static ProgressDialog loading;
 
-
     public static String user_id, name, surname, gender, username, groesse, gewicht, bmi;
 
     public static MenuItem bluetoothStatus, uploadData;
@@ -45,6 +45,7 @@ public class OnlineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_online);
 
+        FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.myFAB);
 
         txtName = (TextView) findViewById(R.id.nameOut);
         txtSurname = (TextView) findViewById(R.id.surnameOut);
@@ -53,12 +54,10 @@ public class OnlineActivity extends AppCompatActivity {
         txtGewicht = (TextView) findViewById(R.id.gewichtOut);
         txtBMI = (TextView) findViewById(R.id.BMIOut);
 
-
         getJson();
         checkBtPermissions();
 
     }
-
     public void onTimeline(View v) {
         final Intent intent = new Intent(OnlineActivity.this, TimelineActivity.class);
         startActivity(intent);
@@ -112,6 +111,7 @@ public class OnlineActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
 
     void BMI_Rechner(String weight, String height)
     {
