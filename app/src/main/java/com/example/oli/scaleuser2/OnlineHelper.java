@@ -38,6 +38,7 @@ class OnlineHelper extends AsyncTask<String, Void, String>
         timeline_url =    "http://10.9.42.55:80/webapp/get_timeline.php";
         //json_url =      "http://192.168.0.15:80/webapp/get_data.php";
         //update_url =    "http://192.168.0.15:80/webapp/update_data.php";
+        //timeline_url =    "http://192.168.0.15:80/webapp/get_timeline.php";
     }
 
     protected String doInBackground(String... params) {
@@ -177,7 +178,7 @@ class OnlineHelper extends AsyncTask<String, Void, String>
         }
         if(result.contains("timeline"))
         {
-            TimelineActivity.parseJson(result);
+            TimelineActivity.parse(result);
         }
 
     }

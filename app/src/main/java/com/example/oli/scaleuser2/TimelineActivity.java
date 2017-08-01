@@ -2,7 +2,6 @@ package com.example.oli.scaleuser2;
 
 import android.app.ProgressDialog;
 import android.graphics.Color;
-import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
@@ -21,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -66,11 +66,15 @@ public class TimelineActivity extends AppCompatActivity {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         try {
             date = format.parse(dateString);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            dateFormat.format(date);
         }catch (ParseException e)
         {
             e.printStackTrace();
         }
     }
+
+
 
 
     private static DataPoint[] getDataPoint() {
@@ -138,12 +142,16 @@ public class TimelineActivity extends AppCompatActivity {
                 JSONObject JO = jsonArray.getJSONObject(count);
                 String gewicht = JO.getString("gewicht");
                 String datum = JO.getString("datum");
+                dateFormater(datum);
 
 
                 //UserHistory userHistory = new UserHistory(gewicht, datum);
                 //UserHistoryAdapter userHistoryAdapter = new UserHistoryAdapter();
+                //dateFormater(datum);
                 UserHistoryList.listGewicht.add(gewicht);
                 UserHistoryList.listDatum.add(datum);
+                //dateFormater(datum);
+
 
                 count++;
             }
