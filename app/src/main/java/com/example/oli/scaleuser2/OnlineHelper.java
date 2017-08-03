@@ -31,17 +31,14 @@ class OnlineHelper extends AsyncTask<String, Void, String>
     }
     protected void onPreExecute()
     {
-        //json_url =      "http://192.168.178.23:80/webapp/getdata.php";
-        //update_url =    "http://192.168.178.23:80/webapp/updatedata.php";
-        //timeline_url =  "http://192.168.178.23:80/webapp/getTimeline.php";
-
-        //timeline_url =  "http://192.168.1.19:80/webapp/getTimeline.php";
-        //json_url =      "http://192.168.1.19:80/webapp/getdata.php";
-        //update_url =    "http://192.168.1.19:80/webapp/updatedata.php";
-
-        json_url =      "http://10.9.43.127:80/webapp/getdata.php";
-        update_url =    "http://10.9.43.127:80/webapp/updatedata.php";
-        timeline_url =  "http://10.9.43.127:80/webapp/getTimeline.php";
+        //json_url =      "http://10.9.42.55:80/webapp/getData.php";
+        //update_url =    "http://10.9.42.55:80/webapp/updateData.php";
+        json_url =      "http://10.9.42.55:80/webapp/get_data.php";
+        update_url =    "http://10.9.42.55:80/webapp/update_data.php";
+        timeline_url =    "http://10.9.42.55:80/webapp/get_timeline.php";
+        //json_url =      "http://192.168.0.15:80/webapp/get_data.php";
+        //update_url =    "http://192.168.0.15:80/webapp/update_data.php";
+        //timeline_url =    "http://192.168.0.15:80/webapp/get_timeline.php";
     }
 
     protected String doInBackground(String... params) {
@@ -82,44 +79,6 @@ class OnlineHelper extends AsyncTask<String, Void, String>
                     e.printStackTrace();
                     return "Exception:" + e.getMessage();
                 }
-
-            if(type.equals("getTimeline")) {
-                try {
-                    //String name = params[1];
-                    URL url = new URL(timeline_url);
-                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                    httpURLConnection.setRequestMethod("POST");
-                    httpURLConnection.setDoOutput(true);
-                    httpURLConnection.setDoInput(true);
-                    OutputStream outputStream = httpURLConnection.getOutputStream();
-                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                    String post_data = URLEncoder.encode("user_id", "UTF-8") + "=" + URLEncoder.encode(OnlineActivity.user_id, "UTF-8");
-                    bufferedWriter.write(post_data);
-                    bufferedWriter.flush();
-                    bufferedWriter.close();
-                    outputStream.close();
-
-
-                    InputStream inputStream = httpURLConnection.getInputStream();
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-                    String result = "";
-                    StringBuilder stringBuilder = new StringBuilder();
-                    while ((result = bufferedReader.readLine()) != null) {
-                        stringBuilder.append(result + "\n");
-                    }
-                    bufferedReader.close();
-                    inputStream.close();
-                    httpURLConnection.disconnect();
-                    return stringBuilder.toString().trim();
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                    return "Exception: " + e.getMessage();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return "Exception:" + e.getMessage();
-                }
-
-            }
 
             if(type.equals("updateData")) {
                 try {
@@ -163,6 +122,43 @@ class OnlineHelper extends AsyncTask<String, Void, String>
 
             }
         }
+        if(type.equals("getTimeline")) {
+            try {
+                //String name = params[1];
+                URL url = new URL(timeline_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(OnlineActivity.user_id, "UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String result = "";
+                StringBuilder stringBuilder = new StringBuilder();
+                while ((result = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(result + "\n");
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return stringBuilder.toString().trim();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                return "Exception: " + e.getMessage();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "Exception:" + e.getMessage();
+            }
+
+        }
         return null;
     }
 
@@ -180,9 +176,8 @@ class OnlineHelper extends AsyncTask<String, Void, String>
             Toast.makeText(context, result, Toast.LENGTH_LONG).show();
             OnlineActivity.uploadData.setIcon(context.getResources().getDrawable(R.mipmap.update_data));
         }
-        if (result.contains("timeline"))
+        if(result.contains("timeline"))
         {
-            TimelineActivity.txtJson.setText(result);
             TimelineActivity.parse(result);
         }
 
