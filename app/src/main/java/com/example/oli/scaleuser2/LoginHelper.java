@@ -81,10 +81,11 @@ public class LoginHelper extends AsyncTask<String, Void, String> {
             try {
                 String name = params[1];
                 String nachname = params[2];
-                String gender = params[3];
-                String user_name = params[4];
-                String password = params[5];
-                String groesse = params[6];
+                String birthday = params[3];
+                String gender = params[4];
+                String user_name = params[5];
+                String password = params[6];
+                String groesse = params[7];
                 URL url = new URL(register_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
@@ -94,6 +95,7 @@ public class LoginHelper extends AsyncTask<String, Void, String> {
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                 String post_data = URLEncoder.encode("name","UTF-8")+"="+URLEncoder.encode(name,"UTF-8")+"&"
                         +URLEncoder.encode("nachname","UTF-8")+"="+URLEncoder.encode(nachname,"UTF-8")+"&"
+                        +URLEncoder.encode("birthday","UTF-8")+"="+URLEncoder.encode(birthday,"UTF-8")+"&"
                         +URLEncoder.encode("gender","UTF-8")+"="+URLEncoder.encode(gender,"UTF-8")+"&"
                         +URLEncoder.encode("user_name","UTF-8")+"="+URLEncoder.encode(user_name,"UTF-8")+"&"
                         +URLEncoder.encode("password","UTF-8")+"="+URLEncoder.encode(password,"UTF-8")+"&"

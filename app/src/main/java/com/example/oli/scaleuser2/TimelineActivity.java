@@ -2,7 +2,6 @@ package com.example.oli.scaleuser2;
 
 import android.app.ProgressDialog;
 import android.graphics.Color;
-import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
@@ -20,9 +19,6 @@ import com.jjoe64.graphview.series.Series;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.text.ParseException;
-import java.util.Date;
 
 
 /**
@@ -107,7 +103,7 @@ public class TimelineActivity extends AppCompatActivity {
         graph.getViewport().setMaxX((double) historySize - 1);
         graph.getViewport().setYAxisBoundsManual(true);
         graph.getViewport().setMinY(0.0);
-        graph.getViewport().setMaxY(150.0);
+        graph.getViewport().setMaxY(160.0);
 
         txtBegin.setText(hLabels[1]);
         txtEnd.setText(hLabels[historySize - 1]);
