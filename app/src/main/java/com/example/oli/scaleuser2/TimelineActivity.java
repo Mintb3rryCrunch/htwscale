@@ -105,8 +105,11 @@ public class TimelineActivity extends AppCompatActivity {
         graph.getViewport().setMinY(0.0);
         graph.getViewport().setMaxY(160.0);
 
+
         txtBegin.setText(hLabels[1]);
         txtEnd.setText(hLabels[historySize - 1]);
+
+
 
 
         return dp;
@@ -161,6 +164,8 @@ public class TimelineActivity extends AppCompatActivity {
                 count++;
             }
 
+
+
             LineGraphSeries series = new LineGraphSeries(getDataPoint());
             series.setDrawDataPoints(true);
             series.setDataPointsRadius(12);
@@ -182,6 +187,7 @@ public class TimelineActivity extends AppCompatActivity {
                     Toast.makeText(thisActivity,strDate+ "     " +dataY+ " kg", Toast.LENGTH_SHORT).show();
                 }
             });
+
 
         }catch (JSONException e)
         {

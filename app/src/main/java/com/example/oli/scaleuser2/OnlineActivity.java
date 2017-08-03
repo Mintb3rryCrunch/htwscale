@@ -27,15 +27,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Created by Oli on 21.06.2017.
  */
 
 public class OnlineActivity extends AppCompatActivity {
-    private static TextView status, txtName, txtSurname, txtGender, txtGroesse, txtGewicht, txtUsername, txtBMI;
+    private static TextView status, txtName, txtSurname, txtBirthday, txtGender, txtGroesse, txtGewicht, txtUsername, txtBMI, txtBMR;
     private  static ProgressDialog loading;
 
-    public static String user_id, name, surname, gender, username, groesse, gewicht, bmi;
+    public static String user_id, name, surname, birthday, gender, username, groesse, gewicht, bmi, bmr;
+    private static long age;
 
     public static MenuItem bluetoothStatus, uploadData;
     public static int bluetoothStatusIcon = R.mipmap.bluetooth_disabled, uploadDataIcon = R.mipmap.update_data;
@@ -49,10 +56,12 @@ public class OnlineActivity extends AppCompatActivity {
 
         txtName = (TextView) findViewById(R.id.nameOut);
         txtSurname = (TextView) findViewById(R.id.surnameOut);
+        txtBirthday = (TextView) findViewById(R.id.ageOut);
         txtGender = (TextView) findViewById(R.id.genderOut);
         txtGroesse = (TextView) findViewById(R.id.groesseOut);
         txtGewicht = (TextView) findViewById(R.id.gewichtOut);
         txtBMI = (TextView) findViewById(R.id.BMIOut);
+        txtBMR = (TextView) findViewById(R.id.BMROut);
 
         getJson();
         checkBtPermissions();
@@ -72,10 +81,12 @@ public class OnlineActivity extends AppCompatActivity {
 
         txtName.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
         txtSurname.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
+        txtBirthday.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
         txtGender.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
         txtGroesse.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
         txtGewicht.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
         txtBMI.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
+        txtBMR.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
 
     }
 
@@ -90,18 +101,24 @@ public class OnlineActivity extends AppCompatActivity {
                 user_id = JO.getString("id");
                 name = JO.getString("name");
                 surname = JO.getString("nachname");
+                birthday = JO.getString("birthday");
                 gender = JO.getString("gender");
                 groesse = JO.getString("groesse");
                 gewicht = JO.getString("gewicht");
                 bmi = JO.getString("bmi");
+                bmr = JO.getString("bmr");
                 username = JO.getString("username");
+
+                age = age_Calculator(birthday);
 
                 txtName.setText(name);
                 txtSurname.setText(surname);
+                txtBirthday.setText(String.valueOf(age));
                 txtGender.setText(gender);
                 txtGroesse.setText(groesse);
                 txtGewicht.setText(gewicht);
                 txtBMI.setText(bmi);
+                txtBMR.setText(bmr);
 
 
             loading.dismiss();
@@ -112,8 +129,29 @@ public class OnlineActivity extends AppCompatActivity {
         }
     }
 
+    private static long age_Calculator(String string_birthday)
+    {
 
-    void BMI_Rechner(String weight, String height)
+        try {
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            Date dtBirthday = df.parse(string_birthday);
+            Date now = new Date();
+            df.format(now);
+
+
+
+            return (now.getTime() - dtBirthday.getTime()) / (24 * 60 * 60 * 1000) / 365;
+
+
+        }catch(ParseException e){
+            e.printStackTrace();
+        }
+        return 0;
+
+    }
+
+
+    private void BMI_Rechner(String weight, String height)
     {
         float calc_weight = Float.parseFloat(weight);
         float calc_height = Float.parseFloat(height) /100;
@@ -128,17 +166,40 @@ public class OnlineActivity extends AppCompatActivity {
         txtBMI.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
 
 
-
-
     }
 
-    public void add_weight() {
+    private void BMR_Calulcator(String weight, String height, long age, String gender)
+    {
+        double BMR;
+
+        float calc_weight = Float.parseFloat(weight);
+        float calc_height = Float.parseFloat(height);
+
+        if (gender.contains("Female"))
+        {
+            BMR = 655 + (9.6 * calc_weight) + (1.8 * calc_height) - (4.7 * age);
+            BMR = Math.round(BMR * 100) / 100;
+            bmr = Double.toString(BMR);
+        }
+        else
+        {
+            BMR = 66 + (13.7 * calc_weight) + (5 * calc_height) - (6.8 * age);
+            BMR = Math.round(BMR * 100) / 100;
+            bmr = Double.toString(BMR);
+        }
+
+        txtBMR.setText(bmr);
+        txtBMR.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
+    }
+
+    private void add_weight() {
 
         gewicht = Float.toString(BluetoothMiScale.weightdata);
         txtGewicht.setText(gewicht);
         txtGewicht.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
         //Toast.makeText(MainActivity.this, "Weightdata: " +weight, Toast.LENGTH_LONG).show();
         BMI_Rechner(gewicht, groesse);
+        BMR_Calulcator(gewicht, groesse, age, gender);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -208,9 +269,10 @@ public class OnlineActivity extends AppCompatActivity {
         else if (id == R.id.update_data){
             String type = "updateData";
             OnlineHelper onlineHelper = new OnlineHelper(this);
-            onlineHelper.execute(type, user_id, gewicht, bmi);
+            onlineHelper.execute(type, user_id, gewicht, bmi, bmr);
 
             txtBMI.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_out_right));
+            txtBMR.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_out_right));
             txtGewicht.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_out_right));
 
             uploadData.setIcon(getResources().getDrawable(R.mipmap.data_update));

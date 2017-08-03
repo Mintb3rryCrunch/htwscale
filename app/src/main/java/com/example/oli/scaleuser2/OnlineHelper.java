@@ -31,11 +31,12 @@ class OnlineHelper extends AsyncTask<String, Void, String>
     }
     protected void onPreExecute()
     {
-        //json_url =      "http://10.9.42.55:80/webapp/getData.php";
-        //update_url =    "http://10.9.42.55:80/webapp/updateData.php";
-        json_url =      "http://10.9.42.55:80/webapp/get_data.php";
-        update_url =    "http://10.9.42.55:80/webapp/update_data.php";
-        timeline_url =    "http://10.9.42.55:80/webapp/get_timeline.php";
+        json_url =      "http://10.9.40.222:80/webapp/getData.php";
+        update_url =    "http://10.9.40.222:80/webapp/updateData.php";
+        timeline_url =    "http://10.9.40.222:80/webapp/getTimeline.php";
+        //json_url =      "http://10.9.42.55:80/webapp/get_data.php";
+        //update_url =    "http://10.9.42.55:80/webapp/update_data.php";
+        //timeline_url =    "http://10.9.42.55:80/webapp/get_timeline.php";
         //json_url =      "http://192.168.0.15:80/webapp/get_data.php";
         //update_url =    "http://192.168.0.15:80/webapp/update_data.php";
         //timeline_url =    "http://192.168.0.15:80/webapp/get_timeline.php";
@@ -85,6 +86,7 @@ class OnlineHelper extends AsyncTask<String, Void, String>
                     String user_id = params[1];
                     String gewicht = params[2];
                     String bmi = params[3];
+                    String bmr = params[4];
 
                     URL url = new URL(update_url);
                     HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -95,6 +97,7 @@ class OnlineHelper extends AsyncTask<String, Void, String>
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                     String post_data = URLEncoder.encode("gewicht","UTF-8")+"="+URLEncoder.encode(gewicht,"UTF-8")+"&"
                             +URLEncoder.encode("bmi","UTF-8")+"="+URLEncoder.encode(bmi,"UTF-8")+"&"
+                            +URLEncoder.encode("bmr","UTF-8")+"="+URLEncoder.encode(bmr,"UTF-8")+"&"
                             +URLEncoder.encode("id","UTF-8")+"="+URLEncoder.encode(user_id,"UTF-8");
                     bufferedWriter.write(post_data);
                     bufferedWriter.flush();
@@ -178,6 +181,7 @@ class OnlineHelper extends AsyncTask<String, Void, String>
         }
         if(result.contains("timeline"))
         {
+            TimelineActivity.txtJson.setText(result);
             TimelineActivity.parse(result);
         }
 
