@@ -1,6 +1,7 @@
 package com.example.oli.scaleuser2;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,10 +18,13 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import java.util.Calendar;
 
 /**
  * Created by Oli on 21.06.2017.
@@ -155,17 +159,41 @@ public class LoginGui extends AppCompatActivity implements TextWatcher,
         final EditText etPassword = (EditText) alertLayout.findViewById(R.id.et_password);
         final EditText etVorname     = (EditText) alertLayout.findViewById(R.id.et_name);
         final EditText etNachname     = (EditText) alertLayout.findViewById(R.id.et_nachname);
+        final EditText etBirthday     = (EditText) alertLayout.findViewById(R.id.et_birthday);
         final RadioGroup radioGroupGender = (RadioGroup) alertLayout.findViewById(R.id.radioGeschlecht);
         final SeekBar groesseIn = (SeekBar) alertLayout.findViewById(R.id.groesseBar);
         final TextView groesseOut = (TextView) alertLayout.findViewById(R.id.groesseCm);
         final CheckBox cbShowPassword = (CheckBox) alertLayout.findViewById(R.id.cb_show_password);
         final LoginHelper loginhelper = new LoginHelper(this);
+        final Context context;
+        context = this;
+        //final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        //etBirthday.setText(dateFormat.format(new Date()));
+
 
         etVorname.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         etNachname.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         etUsername.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 
+        etBirthday.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    Calendar cal = Calendar.getInstance();
+                    final DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
+                            //etBirthday.setText(String.format("%02d.%02d.%04d", selectedDay, selectedMonth + 1, selectedYear));
+                            etBirthday.setText(String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay));
+                        }
+                    };
 
+                    DatePickerDialog datePicker = new DatePickerDialog(context, datePickerListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+                    datePicker.show();
+                }
+            }
+        });
 
 
         int progress = 150;
@@ -233,6 +261,7 @@ public class LoginGui extends AppCompatActivity implements TextWatcher,
 
                 String name = etVorname.getText().toString();
                 String nachname = etNachname.getText().toString();
+                String birthday = etBirthday.getText().toString();
                 String gender = "";
                 int selectedId = radioGroupGender.getCheckedRadioButtonId();
 
@@ -251,12 +280,15 @@ public class LoginGui extends AppCompatActivity implements TextWatcher,
 
                 loading = ProgressDialog.show(LoginGui.this, "Please Wait...",null,true,true);
 
-                loginhelper.execute(type, name, nachname, gender, username, password, groesse);
+                loginhelper.execute(type, name, nachname, birthday, gender, username, password, groesse);
             }
         });
         AlertDialog dialog = alert.create();
         dialog.show();
     }
+
+
+
 }
 
 
