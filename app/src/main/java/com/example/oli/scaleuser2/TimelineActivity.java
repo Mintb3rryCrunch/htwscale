@@ -2,11 +2,13 @@ package com.example.oli.scaleuser2;
 
 import android.app.ProgressDialog;
 import android.graphics.Color;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
@@ -20,7 +22,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -32,12 +33,10 @@ public class TimelineActivity extends AppCompatActivity {
 
     static TimelineActivity thisActivity = null;
 
-    public static TextView txtJson;
+    public static TextView txtJson, txtBegin, txtEnd;
     ProgressDialog loading;
 
-    private static Date date;
-
-
+    static String[] hLabels;
 
     public static GraphView graph;
 
@@ -48,9 +47,14 @@ public class TimelineActivity extends AppCompatActivity {
         thisActivity = this;
 
         txtJson = (TextView) findViewById(R.id.json_timeline);
+        txtBegin = (TextView) findViewById(R.id.firstDate);
+        txtEnd = (TextView) findViewById(R.id.lastDate);
         graph = (GraphView) findViewById(R.id.timelineGraph);
 
         graph.getViewport().setScalable(true);
+        graph.getViewport().setScalableY(false);
+        graph.getViewport().setScrollable(true);
+
 
 
         //DataPoint[] dataPoints = new DataPoint[UserHistoryAdapter.listGewicht.size()];
@@ -61,27 +65,13 @@ public class TimelineActivity extends AppCompatActivity {
         getJson();
     }
 
-    private static void dateFormater(String dateString)
-    {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            date = format.parse(dateString);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            dateFormat.format(date);
-        }catch (ParseException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-
 
 
     private static DataPoint[] getDataPoint() {
 
         int historySize = UserHistoryList.listGewicht.size();
         DataPoint[] dp = new DataPoint[historySize];
-        String[] hLabels = new String[UserHistoryList.listDatum.size()];
+        hLabels = new String[UserHistoryList.listDatum.size()];
 
         for (int i = 0; i < historySize; i++) {
             String dateString = UserHistoryList.getItemDatum(i).toString();
@@ -91,20 +81,42 @@ public class TimelineActivity extends AppCompatActivity {
             hLabels[i] = dateString;
         }
 
+
+
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
-        staticLabelsFormatter.setHorizontalLabels(hLabels);
+        //staticLabelsFormatter.setHorizontalLabels(hLabels);
         graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+        graph.getGridLabelRenderer().setNumHorizontalLabels(0);
+
+        graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
+            @Override
+            public String formatLabel(double value, boolean isValueX) {
+                if (isValueX) {
+                    // show normal x values
+                    return super.formatLabel(value, isValueX) + ". day";
+                } else {
+                    // show currency for y values
+                    return super.formatLabel(value, isValueX);
+                }
+            }
+        });
+
+
         graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setMinX(0.0);
+        graph.getViewport().setMinX(0);
         graph.getViewport().setMaxX((double) historySize - 1);
+        graph.getViewport().setYAxisBoundsManual(true);
+        graph.getViewport().setMinY(0.0);
+        graph.getViewport().setMaxY(150.0);
+
+        txtBegin.setText(hLabels[1]);
+        txtEnd.setText(hLabels[historySize - 1]);
 
 
         return dp;
 
 
     }
-
-
 
     private void getJson()
     {
@@ -136,22 +148,19 @@ public class TimelineActivity extends AppCompatActivity {
             int count = 0;
 
             checkUserList();
+            UserHistoryList.listGewicht.add(0.0);
+            UserHistoryList.listDatum.add(0);
 
             while(count < jsonArray.length())
             {
                 JSONObject JO = jsonArray.getJSONObject(count);
                 String gewicht = JO.getString("gewicht");
                 String datum = JO.getString("datum");
-                dateFormater(datum);
-
 
                 //UserHistory userHistory = new UserHistory(gewicht, datum);
                 //UserHistoryAdapter userHistoryAdapter = new UserHistoryAdapter();
-                //dateFormater(datum);
                 UserHistoryList.listGewicht.add(gewicht);
                 UserHistoryList.listDatum.add(datum);
-                //dateFormater(datum);
-
 
                 count++;
             }
@@ -169,7 +178,12 @@ public class TimelineActivity extends AppCompatActivity {
             series.setOnDataPointTapListener(new OnDataPointTapListener() {
                 @Override
                 public void onTap(Series series, DataPointInterface dataPoint) {
-                    Toast.makeText(thisActivity, "Series1: On Data Point clicked: "+dataPoint, Toast.LENGTH_SHORT).show();
+                    String data = dataPoint.toString();
+                    int dataX = (int)dataPoint.getX();
+                    double dataY = dataPoint.getY();
+                    String strDate = hLabels[dataX];
+
+                    Toast.makeText(thisActivity,strDate+ "     " +dataY+ " kg", Toast.LENGTH_SHORT).show();
                 }
             });
 

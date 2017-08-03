@@ -5,17 +5,53 @@
     android:weightSum="1">
 
 
-    <com.jjoe64.graphview.GraphView
-        android:layout_width="match_parent"
-        android:layout_height="200dip"
-        android:id="@+id/timelineGraph"
-        android:layout_weight="0.72" />
-
     <TextView
         android:id="@+id/json_timeline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="" />
+
+
+    <com.jjoe64.graphview.GraphView
+        android:layout_width="match_parent"
+        android:layout_height="200dip"
+        android:id="@+id/timelineGraph"
+        android:layout_weight="0.70" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:layout_weight="0.10">
+
+        <TextView
+            android:layout_width="0dp"
+            android:id="@+id/firstDate"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:textStyle="bold"
+            android:layout_weight="0.05"
+            android:text="" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_weight="0.01"
+            android:text=" - " />
+        <TextView
+            android:layout_width="0dp"
+            android:id="@+id/lastDate"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:textStyle="bold"
+            android:layout_weight="0.05"
+            android:text="" />
+
+    </LinearLayout>
+
 
 
 </LinearLayout>
