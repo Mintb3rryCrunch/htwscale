@@ -2,6 +2,7 @@ package com.example.oli.scaleuser2;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
@@ -25,6 +26,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
@@ -32,9 +34,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import static com.example.oli.scaleuser2.R.id.add_user;
+import static com.example.oli.scaleuser2.R.id.et_birthday;
 import static com.example.oli.scaleuser2.R.id.et_nachname;
 import static com.example.oli.scaleuser2.R.id.et_vorname;
 
@@ -51,7 +58,7 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
     private static boolean firstAppStart = true;
     UserDatabase myDb;
 
-    TextView txtNachname, txtGroesse, txtGeschlecht, txtGewicht, txtBMI;
+    TextView txtNachname, txtAge, txtGroesse, txtGeschlecht, txtGewicht, txtBMR, txtBMI;
     Button adduser;
     Spinner spinner;
 
@@ -70,10 +77,12 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
         spinner.setOnItemSelectedListener(this);
 
         txtNachname = (TextView) findViewById(R.id.nachnameOut);
+        txtAge = (TextView) findViewById(R.id.ageOut);
         txtGroesse = (TextView) findViewById(R.id.groesseOut);
         txtGeschlecht = (TextView) findViewById(R.id.genderOut);
         txtGewicht = (TextView) findViewById(R.id.gewichtOut);
         txtBMI = (TextView) findViewById(R.id.BMIOut);
+        txtBMR = (TextView) findViewById(R.id.BMROut);
 
         adduser = (Button) findViewById(R.id.add_user);
 
@@ -121,14 +130,14 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
         Cursor cursor = myDb.getAllUser2();
         while(cursor.moveToNext())
         {
-            int rowCount = Integer.parseInt(cursor.getString(6));
+            int rowCount = Integer.parseInt(cursor.getString(7));
             int dbId = Integer.parseInt(cursor.getString(0));
             int spinnerId = spinner.getSelectedItemPosition();
 
             if (rowCount == spinnerId)
             {
                 boolean isUpdated = myDb.updateData_weight(String.valueOf(dbId), weightData);
-                if(Float.parseFloat(cursor.getString(5)) == 0.0) {
+                if(Float.parseFloat(cursor.getString(6)) == 0.0) {
                     if (isUpdated == true) {
                         Toast.makeText(OfflineActivity.this, "Data Weight Inserted", Toast.LENGTH_LONG).show();
                     }
@@ -153,20 +162,6 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
         }
     }
 
-    void BMI_Rechner(String weight, String height)
-    {
-        float calc_weight = Float.parseFloat(weight);
-        float calc_height = Float.parseFloat(height) /100;
-
-        float BMI = calc_weight / (calc_height*calc_height);
-
-        BMI = (float)Math.round(BMI * 10) / 10;
-
-        txtBMI.setText(Float.toString(BMI));
-        txtBMI.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
-
-    }
-
     public void updateSpinner() {
         names.clear();
 
@@ -183,7 +178,7 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
         Cursor cursor = myDb.getAllUser2();
 
         while (cursor.moveToNext()) {
-            int rowNumber = Integer.parseInt(cursor.getString(6));
+            int rowNumber = Integer.parseInt(cursor.getString(7));
             int spinnerId = spinner.getSelectedItemPosition();
 
             if (rowNumber == spinnerId) {
@@ -192,14 +187,23 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
 
                 String name = cursor.getString(1);
                 String surname = cursor.getString(2);
-                String gender = cursor.getString(3);
-                String height = cursor.getString(4);
-                String weight = cursor.getString(5);
+                String birthday = cursor.getString(3);
+                String gender = cursor.getString(4);
+                String height = cursor.getString(5);
+                String weight = cursor.getString(6);
+
+                long age = Calculator.age_Calculator(birthday);
+                String bmi = Calculator.BMI_Calculator(weight, height);
+                String bmr = Calculator.BMR_Calculcator(weight, height, age, gender);
+
 
                 //AUSGABE
 
                 txtNachname.setText(surname);
                 txtNachname.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
+
+                txtAge.setText(String.valueOf(age));
+                txtAge.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
 
                 txtGeschlecht.setText(gender);
                 txtGeschlecht.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
@@ -210,7 +214,12 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
                 txtGewicht.setText(weight);
                 txtGewicht.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
 
-                BMI_Rechner(weight, height);
+                txtBMR.setText(bmr);
+                txtBMR.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
+
+                txtBMI.setText(bmi);
+                txtBMI.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
+
 
             }
         }
@@ -223,9 +232,32 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
 
         final EditText etVorname     = (EditText) alertLayout.findViewById(et_vorname);
         final EditText etNachname     = (EditText) alertLayout.findViewById(et_nachname);
+        final EditText etBirthday     = (EditText) alertLayout.findViewById(et_birthday);
         final SeekBar groesseIn = (SeekBar) alertLayout.findViewById(R.id.groesseBar);
         final TextView groesseOut = (TextView) alertLayout.findViewById(R.id.groesseCm);
         final RadioGroup radioGroupGender = (RadioGroup) alertLayout.findViewById(R.id.radioGender);
+        final LoginHelper loginhelper = new LoginHelper(this);
+        final Context context;
+        context = this;
+
+        etBirthday.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    Calendar cal = Calendar.getInstance();
+                    final DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
+                            //etBirthday.setText(String.format("%02d.%02d.%04d", selectedDay, selectedMonth + 1, selectedYear));
+                            etBirthday.setText(String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay));
+                        }
+                    };
+
+                    DatePickerDialog datePicker = new DatePickerDialog(context, datePickerListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+                    datePicker.show();
+                }
+            }
+        });
 
         int progress = 150;
         int progressMin = 120;
@@ -279,6 +311,7 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
             public void onClick(DialogInterface dialog, int which) {
 
                 String vorname = etVorname.getText().toString();
+                String birthday = etBirthday.getText().toString();
                 String nachname = etNachname.getText().toString();
                 String groesse = groesseOut.getText().toString();
 
@@ -297,11 +330,12 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
                 }
 
 
-                boolean isInserted = myDb.insertData(vorname, nachname, gender, groesse, weight);
+                boolean isInserted = myDb.insertData(vorname, nachname, birthday, gender, groesse, weight);
 
                 if (isInserted == true) {
                     Toast.makeText(OfflineActivity.this, "Data Inserted", Toast.LENGTH_LONG).show();
                     updateSpinner();
+                    viewUser();
                 } else {
                     Toast.makeText(OfflineActivity.this, "Data not Inserted", Toast.LENGTH_LONG).show();
                 }
@@ -393,7 +427,7 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
                 Cursor cursor = myDb.getAllUser2();
 
                 while (cursor.moveToNext()) {
-                    int rowNumber = Integer.parseInt(cursor.getString(6));
+                    int rowNumber = Integer.parseInt(cursor.getString(7));
                     int dbId = Integer.parseInt(cursor.getString(0));
                     int spinnerId = spinner.getSelectedItemPosition();
 

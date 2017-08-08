@@ -20,9 +20,10 @@ public class UserDatabase extends SQLiteOpenHelper {
     public static final String COL_1=   "ID";
     public static final String COl_2=   "NAME";
     public static final String COl_3=   "SURNAME";
-    public static final String COl_4=   "GENDER";
-    public static final String COl_5=   "HEIGHT";
-    public static final String COL_6=   "WEIGHT";
+    public static final String COl_4=   "BIRTHDAY";
+    public static final String COl_5=   "GENDER";
+    public static final String COl_6=   "HEIGHT";
+    public static final String COL_7=   "WEIGHT";
 
 
     public UserDatabase(Context context) {
@@ -32,7 +33,7 @@ public class UserDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + TABLE_NAME +
-                " (ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT,SURNAME TEXT, GENDER TEXT, HEIGHT INTEGER, WEIGHT TEXT)");
+                " (ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT, SURNAME TEXT, BIRTHDAY TEXT, GENDER TEXT, HEIGHT INTEGER, WEIGHT TEXT)");
 
     }
 
@@ -52,15 +53,16 @@ public class UserDatabase extends SQLiteOpenHelper {
         }
     }
 */
-    public boolean insertData (String name, String surname, String gender, String height, String weight)
+    public boolean insertData (String name, String surname, String birthday, String gender, String height, String weight)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contenvalue = new ContentValues();
         contenvalue.put(COl_2, name);
         contenvalue.put(COl_3, surname);
-        contenvalue.put(COl_4, gender);
-        contenvalue.put(COl_5, height);
-        contenvalue.put(COL_6, weight);
+        contenvalue.put(COl_4, birthday);
+        contenvalue.put(COl_5, gender);
+        contenvalue.put(COl_6, height);
+        contenvalue.put(COL_7, weight);
 
         long result = db.insert(TABLE_NAME, null, contenvalue);
         if(result == -1)
@@ -94,7 +96,7 @@ public class UserDatabase extends SQLiteOpenHelper {
     public Cursor getAllUser()
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        String[] colums = {COL_1, COl_2, COl_3, COl_4, COl_5};
+        String[] colums = {COL_1, COl_2, COl_3, COl_4, COl_5, COl_6};
         Cursor cursor = db.query(TABLE_NAME, colums, null, null, null, null, null);
 
         return cursor;
@@ -114,11 +116,11 @@ public class UserDatabase extends SQLiteOpenHelper {
             contentValues.put(COl_3, surname);
         }
 
-        contentValues.put(COl_4,gender);
+        contentValues.put(COl_5,gender);
 
         if (!height.contains("150"))
         {
-            contentValues.put(COl_5, height);
+            contentValues.put(COl_6, height);
         }
         db.update(TABLE_NAME, contentValues, "ID = ?", new String[]{id});
         return true;
@@ -131,7 +133,7 @@ public class UserDatabase extends SQLiteOpenHelper {
         contentValues.put(COL_1, id);
         if (!TextUtils.isEmpty(weight))
         {
-            contentValues.put(COL_6, weight);
+            contentValues.put(COL_7, weight);
         }
 
         db.update(TABLE_NAME, contentValues, "ID = ?", new String[]{id});
