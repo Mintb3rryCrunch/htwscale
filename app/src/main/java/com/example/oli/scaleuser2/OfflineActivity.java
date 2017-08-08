@@ -455,7 +455,7 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
         Cursor cursor = myDb.getAllUser2();
 
         while (cursor.moveToNext()) {
-            int rowNumber = Integer.parseInt(cursor.getString(6));
+            int rowNumber = Integer.parseInt(cursor.getString(7));
             int dbId = Integer.parseInt(cursor.getString(0));
             int spinnerId = spinner.getSelectedItemPosition();
 
