@@ -173,8 +173,18 @@ public class TimelineActivity extends AppCompatActivity {
             series.setColor(Color.rgb(255, 64, 129));
             series.setThickness(8);
 
+            /*BarGraphSeries series2 = new BarGraphSeries(getDataPoint());
+            series2.setDrawValuesOnTop(true);
+            series2.setSpacing(20);
+            series2.setAnimated(true);
+            series2.setColor(Color.rgb(63, 81, 181));*/
+
+
+
 
             graph.addSeries(series);
+            //graph.addSeries(series2);
+
 
             series.setOnDataPointTapListener(new OnDataPointTapListener() {
                 @Override
