@@ -113,9 +113,9 @@ public class OnlineActivity extends AppCompatActivity {
 
                 txtName.setText(name);
                 txtSurname.setText(surname);
-                txtBirthday.setText(String.valueOf(age));
+                txtBirthday.setText(String.valueOf(age) + " years");
                 txtGender.setText(gender);
-                txtGroesse.setText(groesse);
+                txtGroesse.setText(groesse + " cm");
                 txtGewicht.setText(gewicht);
                 txtBMI.setText(bmi);
                 txtBMR.setText(bmr);
