@@ -109,7 +109,7 @@ public class OnlineActivity extends AppCompatActivity {
                 bmr = JO.getString("bmr");
                 username = JO.getString("username");
 
-                age = age_Calculator(birthday);
+                age = Calculator.age_Calculator(birthday);
 
                 txtName.setText(name);
                 txtSurname.setText(surname);
@@ -129,77 +129,19 @@ public class OnlineActivity extends AppCompatActivity {
         }
     }
 
-    private static long age_Calculator(String string_birthday)
-    {
-
-        try {
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            Date dtBirthday = df.parse(string_birthday);
-            Date now = new Date();
-            df.format(now);
-
-
-
-            return (now.getTime() - dtBirthday.getTime()) / (24 * 60 * 60 * 1000) / 365;
-
-
-        }catch(ParseException e){
-            e.printStackTrace();
-        }
-        return 0;
-
-    }
-
-
-    private void BMI_Rechner(String weight, String height)
-    {
-        float calc_weight = Float.parseFloat(weight);
-        float calc_height = Float.parseFloat(height) /100;
-
-        float BMI = calc_weight / (calc_height*calc_height);
-
-        BMI = (float)Math.round(BMI * 10) / 10;
-
-        bmi = Float.toString(BMI);
-
-        txtBMI.setText(bmi);
-        txtBMI.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
-
-
-    }
-
-    private void BMR_Calulcator(String weight, String height, long age, String gender)
-    {
-        double BMR;
-
-        float calc_weight = Float.parseFloat(weight);
-        float calc_height = Float.parseFloat(height);
-
-        if (gender.contains("Female"))
-        {
-            BMR = 655 + (9.6 * calc_weight) + (1.8 * calc_height) - (4.7 * age);
-            BMR = Math.round(BMR * 100) / 100;
-            bmr = Double.toString(BMR);
-        }
-        else
-        {
-            BMR = 66 + (13.7 * calc_weight) + (5 * calc_height) - (6.8 * age);
-            BMR = Math.round(BMR * 100) / 100;
-            bmr = Double.toString(BMR);
-        }
-
-        txtBMR.setText(bmr);
-        txtBMR.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
-    }
-
     private void add_weight() {
 
         gewicht = Float.toString(BluetoothMiScale.weightdata);
         txtGewicht.setText(gewicht);
         txtGewicht.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
         //Toast.makeText(MainActivity.this, "Weightdata: " +weight, Toast.LENGTH_LONG).show();
-        BMI_Rechner(gewicht, groesse);
-        BMR_Calulcator(gewicht, groesse, age, gender);
+        bmi = Calculator.BMI_Calculator(gewicht, groesse);
+        txtBMI.setText(bmi);
+        txtBMI.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
+
+        bmr = Calculator.BMR_Calculcator(gewicht, groesse, age, gender);
+        txtBMR.setText(bmr);
+        txtBMR.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         spinner.setOnItemSelectedListener(this);
 
 
-        AddData();
+       // AddData();
         updateSpinner();
         viewData();
         update_Data();
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
     }
-
+    /*
     public void AddData() {
         btnaddData.setOnClickListener(
                 new View.OnClickListener() {
@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         );
 
     }
+    */
 
     public void update_Data() {
         btnUpdate.setOnClickListener(
