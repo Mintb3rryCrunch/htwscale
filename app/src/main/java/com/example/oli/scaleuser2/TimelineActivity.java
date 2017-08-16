@@ -32,7 +32,7 @@ public class TimelineActivity extends AppCompatActivity {
     public static TextView txtJson, txtBegin, txtEnd;
     ProgressDialog loading;
 
-    static String[] hLabels;
+    static String[] hLabels, emptyLabels;
 
     public static GraphView graph;
 
@@ -65,25 +65,28 @@ public class TimelineActivity extends AppCompatActivity {
 
     private static DataPoint[] getDataPoint() {
 
-        int historySize = UserHistoryList.listGewicht.size();
+        int historySize = UserList.listGewichtTimeline.size();
         DataPoint[] dp = new DataPoint[historySize];
-        hLabels = new String[UserHistoryList.listDatum.size()];
+        hLabels = new String[UserList.listDatum.size()];
+        emptyLabels = new String[UserList.listDatum.size()];
 
         for (int i = 0; i < historySize; i++) {
-            String dateString = UserHistoryList.getItemDatum(i).toString();
-            double gewichtGraph = Double.parseDouble(UserHistoryList.getItemGewicht(i).toString());
+            String dateString = UserList.getItemDatum(i).toString();
+            double gewichtGraph = Double.parseDouble(UserList.getItemGewichtTimeline(i).toString());
             DataPoint v = new DataPoint(i, gewichtGraph);
             dp[i] = v;
             hLabels[i] = dateString;
+            emptyLabels[i] = "";
         }
 
 
 
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
-        //staticLabelsFormatter.setHorizontalLabels(hLabels);
+        staticLabelsFormatter.setHorizontalLabels(emptyLabels);
         graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-        graph.getGridLabelRenderer().setNumHorizontalLabels(0);
+        graph.getGridLabelRenderer().setNumHorizontalLabels(historySize);
 
+        /*
         graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
             @Override
             public String formatLabel(double value, boolean isValueX) {
@@ -96,6 +99,8 @@ public class TimelineActivity extends AppCompatActivity {
                 }
             }
         });
+
+        */
 
 
         graph.getViewport().setXAxisBoundsManual(true);
@@ -127,12 +132,12 @@ public class TimelineActivity extends AppCompatActivity {
 
     private static void checkUserList()
     {
-        if (UserHistoryList.listGewicht.size() > 0)
+        if (UserList.listGewichtTimeline.size() > 0)
         {
-            for (int i = UserHistoryList.listGewicht.size()-1; i >=0; i--)
+            for (int i = UserList.listGewichtTimeline.size()-1; i >=0; i--)
             {
-                UserHistoryList.listGewicht.remove(UserHistoryList.listGewicht.get(i));
-                UserHistoryList.listDatum.remove(UserHistoryList.listDatum.get(i));
+                UserList.listGewichtTimeline.remove(UserList.listGewichtTimeline.get(i));
+                UserList.listDatum.remove(UserList.listDatum.get(i));
             }
         }
 
@@ -147,8 +152,8 @@ public class TimelineActivity extends AppCompatActivity {
             int count = 0;
 
             checkUserList();
-            UserHistoryList.listGewicht.add(0.0);
-            UserHistoryList.listDatum.add(0);
+            UserList.listGewichtTimeline.add(0.0);
+            UserList.listDatum.add(0);
 
             while(count < jsonArray.length())
             {
@@ -158,8 +163,8 @@ public class TimelineActivity extends AppCompatActivity {
 
                 //UserHistory userHistory = new UserHistory(gewicht, datum);
                 //UserHistoryAdapter userHistoryAdapter = new UserHistoryAdapter();
-                UserHistoryList.listGewicht.add(gewicht);
-                UserHistoryList.listDatum.add(datum);
+                UserList.listGewichtTimeline.add(gewicht);
+                UserList.listDatum.add(datum);
 
                 count++;
             }

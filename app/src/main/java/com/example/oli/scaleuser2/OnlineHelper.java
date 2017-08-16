@@ -226,6 +226,7 @@ class OnlineHelper extends AsyncTask<String, Void, String>
         if(result.contains("community"))
         {
             CommunityActivity.txtJson.setText(result);
+            CommunityActivity.parse(result);
         }
 
     }
