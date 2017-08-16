@@ -23,7 +23,7 @@ import java.net.URLEncoder;
 
 class OnlineHelper extends AsyncTask<String, Void, String>
 {
-    String json_url, update_url, timeline_url;
+    String json_url, update_url, timeline_url, community_url;
     Context context;
 
     OnlineHelper(Context ctx) {
@@ -37,9 +37,11 @@ class OnlineHelper extends AsyncTask<String, Void, String>
         json_url =      "http://10.9.42.55:80/webapp/get_data.php";
         update_url =    "http://10.9.42.55:80/webapp/update_data.php";
         timeline_url =    "http://10.9.42.55:80/webapp/get_timeline.php";
-        //json_url =      "http://192.168.0.15:80/webapp/get_data.php";
-        //update_url =    "http://192.168.0.15:80/webapp/update_data.php";
-        //timeline_url =    "http://192.168.0.15:80/webapp/get_timeline.php";
+        community_url =    "http://10.9.42.55:80/webapp/get_community.php";
+        //json_url =      "http://192.168.0.12:80/webapp/get_data.php";
+        //update_url =    "http://192.168.0.12:80/webapp/update_data.php";
+        //timeline_url =    "http://192.168.0.12:80/webapp/get_timeline.php";
+        //community_url =    "http://192.168.0.12:80/webapp/get_community.php";
     }
 
     protected String doInBackground(String... params) {
@@ -162,6 +164,43 @@ class OnlineHelper extends AsyncTask<String, Void, String>
             }
 
         }
+        if(type.equals("getCommunity")) {
+            try {
+                //String name = params[1];
+                URL url = new URL(community_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(OnlineActivity.user_id, "UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String result = "";
+                StringBuilder stringBuilder = new StringBuilder();
+                while ((result = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(result + "\n");
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return stringBuilder.toString().trim();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                return "Exception: " + e.getMessage();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "Exception:" + e.getMessage();
+            }
+
+        }
         return null;
     }
 
@@ -183,6 +222,10 @@ class OnlineHelper extends AsyncTask<String, Void, String>
         {
             TimelineActivity.txtJson.setText(result);
             TimelineActivity.parse(result);
+        }
+        if(result.contains("community"))
+        {
+            CommunityActivity.txtJson.setText(result);
         }
 
     }

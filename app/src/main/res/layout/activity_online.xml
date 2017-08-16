@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:gravity="center_horizontal"
     android:layout_height="match_parent">
@@ -10,7 +11,7 @@
         android:layout_width="205dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:textSize="20sp"
         android:text="User:" />
 
@@ -219,6 +220,8 @@
             android:text="" />
     </LinearLayout>
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -226,14 +229,46 @@
         android:layout_marginTop="5dp"
         android:orientation="horizontal"
         android:weightSum="1">
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/myFabCommunity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/community"
+            android:layout_gravity="bottom|end"
+            android:layout_marginRight="65dp"
+            android:elevation="0dp"
+            android:onClick="onCommunity"
+            android:visibility="invisible"
+            app:pressedTranslationZ="12dp"
+            app:backgroundTint="@color/colorPrimaryDark"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/myFAB"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@mipmap/timeline"
+            android:layout_gravity="bottom|end"
+            android:layout_marginRight="6dp"
+            android:layout_marginBottom="60dp"
             android:elevation="0dp"
             android:onClick="onTimeline"
-            android:layout_height="wrap_content" />
+            android:visibility="invisible"
+            app:pressedTranslationZ="12dp"
+            app:backgroundTint="@color/colorPrimaryDark"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/myFabOption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/options"
+            android:elevation="0dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginRight="6dp"
+            app:pressedTranslationZ="12dp"/>
 
         <TextView
             android:layout_width="0dp"
@@ -242,6 +277,7 @@
             android:layout_weight="0.05"
             android:text="" />
 
+        </android.support.design.widget.CoordinatorLayout>
 
     </LinearLayout>
 
@@ -250,9 +286,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="right"
         android:orientation="horizontal">
+
 
     </LinearLayout>
 

@@ -29,6 +29,7 @@
         <activity android:name=".OnlineActivity"></activity>
         <activity android:name=".OfflineActivity"></activity>
         <activity android:name=".TimelineActivity"></activity>
+        <activity android:name=".CommunityActivity"></activity>
     </application>
 
 </manifest>

@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,12 +27,6 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by Oli on 21.06.2017.
@@ -47,12 +42,49 @@ public class OnlineActivity extends AppCompatActivity {
     public static MenuItem bluetoothStatus, uploadData;
     public static int bluetoothStatusIcon = R.mipmap.bluetooth_disabled, uploadDataIcon = R.mipmap.update_data;
     private static boolean firstAppStart = true;
+    FloatingActionButton myFabOption, myFab, myFabCommunity;
+    Animation FabOpen, FabClose, FabRClockwise, FabRanticlockwise;
+    boolean isOpen = false;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_online);
 
-        FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.myFAB);
+
+        myFabOption = (FloatingActionButton) findViewById(R.id.myFabOption);
+        myFab = (FloatingActionButton) findViewById(R.id.myFAB);
+        myFabCommunity = (FloatingActionButton) findViewById(R.id.myFabCommunity);
+        FabOpen = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_open);
+        FabClose = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_close);
+        FabRClockwise = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_clockwise);
+        FabRanticlockwise = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_anticlockwise);
+
+
+        myFabOption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(isOpen)
+                {
+                    myFab.startAnimation(FabClose);
+                    myFabCommunity.startAnimation(FabClose);
+                    myFabOption.startAnimation(FabRanticlockwise);
+                    myFab.setClickable(false);
+                    myFabCommunity.setClickable(false);
+                    isOpen = false;
+                }
+                else
+                {
+                    myFab.startAnimation(FabOpen);
+                    myFabCommunity.startAnimation(FabOpen);
+                    myFabOption.startAnimation(FabRClockwise);
+                    myFab.setClickable(true);
+                    myFabCommunity.setClickable(true);
+                    isOpen = true;
+                }
+
+            }
+        });
 
         txtName = (TextView) findViewById(R.id.nameOut);
         txtSurname = (TextView) findViewById(R.id.surnameOut);
@@ -67,8 +99,14 @@ public class OnlineActivity extends AppCompatActivity {
         checkBtPermissions();
 
     }
+
     public void onTimeline(View v) {
         final Intent intent = new Intent(OnlineActivity.this, TimelineActivity.class);
+        startActivity(intent);
+    }
+
+    public void onCommunity(View v){
+        final Intent intent = new Intent(OnlineActivity.this, CommunityActivity.class);
         startActivity(intent);
     }
 
