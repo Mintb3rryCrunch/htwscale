@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -33,10 +34,10 @@ public class LoginHelper extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
         String type = params[0];
-        //String login_url =      "http://10.9.40.222:80/webapp/login.php";
-        //String register_url =   "http://10.9.40.222:80/webapp/register.php";
-        String login_url = "http://10.9.42.55:80/webapp/login.php";
-        String register_url = "http://10.9.42.55:80/webapp/register.php";
+        String login_url =      "http://10.9.40.159:80/webapp/login.php";
+        String register_url =   "http://10.9.40.159:80/webapp/register.php";
+        //String login_url = "http://10.9.42.55:80/webapp/login.php";
+        //String register_url = "http://10.9.42.55:80/webapp/register.php";
         //String login_url = "http://192.168.0.12:80/webapp/login.php";
         //String register_url = "http://192.168.0.12:80/webapp/register.php";
 
@@ -133,20 +134,16 @@ public class LoginHelper extends AsyncTask<String, Void, String> {
     protected void onPreExecute() {
         // super.onPreExecute();
 
-        alertDialog = new AlertDialog.Builder(context).create();
-        alertDialog.setTitle("Login Status...");
     }
 
     @Override
     protected void onPostExecute(String result) {
         //super.onPostExecute(aVoid);
         Intent intent = new Intent(context, OnlineActivity.class);
-        alertDialog.setMessage(result);
-        alertDialog.show();
+        Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
 
         if (result.contains("login success"))
         {
-            alertDialog.dismiss();
             context.startActivity(intent);
         }
 

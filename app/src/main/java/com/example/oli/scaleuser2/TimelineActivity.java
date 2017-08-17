@@ -81,10 +81,16 @@ public class TimelineActivity extends AppCompatActivity {
 
 
 
+
+
+
+
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
         staticLabelsFormatter.setHorizontalLabels(emptyLabels);
         graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
         graph.getGridLabelRenderer().setNumHorizontalLabels(historySize);
+
+
 
         /*
         graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
@@ -170,38 +176,34 @@ public class TimelineActivity extends AppCompatActivity {
             }
 
 
+            if (UserList.listGewichtTimeline.size() > 1)
+            {
+                LineGraphSeries series = new LineGraphSeries(getDataPoint());
+                series.setDrawDataPoints(true);
+                series.setDataPointsRadius(12);
+                series.setAnimated(true);
+                series.setColor(Color.rgb(255, 64, 129));
+                series.setThickness(8);
 
-            LineGraphSeries series = new LineGraphSeries(getDataPoint());
-            series.setDrawDataPoints(true);
-            series.setDataPointsRadius(12);
-            series.setAnimated(true);
-            series.setColor(Color.rgb(255, 64, 129));
-            series.setThickness(8);
+                graph.addSeries(series);
 
-            /*BarGraphSeries series2 = new BarGraphSeries(getDataPoint());
-            series2.setDrawValuesOnTop(true);
-            series2.setSpacing(20);
-            series2.setAnimated(true);
-            series2.setColor(Color.rgb(63, 81, 181));*/
+                series.setOnDataPointTapListener(new OnDataPointTapListener() {
+                    @Override
+                    public void onTap(Series series, DataPointInterface dataPoint) {
+                        String data = dataPoint.toString();
+                        int dataX = (int)dataPoint.getX();
+                        double dataY = dataPoint.getY();
+                        String strDate = hLabels[dataX];
 
+                        Toast.makeText(thisActivity,strDate+ "     " +dataY+ " kg", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+            else
+            {
+                Toast.makeText(thisActivity,"You need to insert weightdata to use this graph", Toast.LENGTH_LONG).show();
+            }
 
-
-
-            graph.addSeries(series);
-            //graph.addSeries(series2);
-
-
-            series.setOnDataPointTapListener(new OnDataPointTapListener() {
-                @Override
-                public void onTap(Series series, DataPointInterface dataPoint) {
-                    String data = dataPoint.toString();
-                    int dataX = (int)dataPoint.getX();
-                    double dataY = dataPoint.getY();
-                    String strDate = hLabels[dataX];
-
-                    Toast.makeText(thisActivity,strDate+ "     " +dataY+ " kg", Toast.LENGTH_SHORT).show();
-                }
-            });
 
 
         }catch (JSONException e)

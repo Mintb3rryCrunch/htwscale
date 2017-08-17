@@ -31,13 +31,14 @@ class OnlineHelper extends AsyncTask<String, Void, String>
     }
     protected void onPreExecute()
     {
-        //json_url =      "http://10.9.40.222:80/webapp/getData.php";
-        //update_url =    "http://10.9.40.222:80/webapp/updateData.php";
-        //timeline_url =    "http://10.9.40.222:80/webapp/getTimeline.php";
-        json_url =      "http://10.9.42.55:80/webapp/get_data.php";
-        update_url =    "http://10.9.42.55:80/webapp/update_data.php";
-        timeline_url =    "http://10.9.42.55:80/webapp/get_timeline.php";
-        community_url =    "http://10.9.42.55:80/webapp/get_community.php";
+        json_url =      "http://10.9.40.159:80/webapp/getData.php";
+        update_url =    "http://10.9.40.159:80/webapp/updateData.php";
+        timeline_url =    "http://10.9.40.159:80/webapp/getTimeline.php";
+        community_url =    "http://10.9.40.159:80/webapp/getCommunity.php";
+        //json_url =      "http://10.9.42.55:80/webapp/get_data.php";
+        //update_url =    "http://10.9.42.55:80/webapp/update_data.php";
+        //timeline_url =    "http://10.9.42.55:80/webapp/get_timeline.php";
+        //community_url =    "http://10.9.42.55:80/webapp/get_community.php";
         //json_url =      "http://192.168.0.12:80/webapp/get_data.php";
         //update_url =    "http://192.168.0.12:80/webapp/update_data.php";
         //timeline_url =    "http://192.168.0.12:80/webapp/get_timeline.php";

@@ -202,13 +202,13 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
                 txtNachname.setText(surname);
                 txtNachname.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
 
-                txtAge.setText(String.valueOf(age));
+                txtAge.setText(String.valueOf(age) + " years");
                 txtAge.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
 
                 txtGeschlecht.setText(gender);
                 txtGeschlecht.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
 
-                txtGroesse.setText(height);
+                txtGroesse.setText(height + " cm");
                 txtGroesse.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
 
                 txtGewicht.setText(weight);

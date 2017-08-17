@@ -159,6 +159,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".7"
+            android:hint="only in lowercase"
             android:imeOptions="actionDone"
             android:singleLine="true" />
     </LinearLayout>
@@ -182,6 +183,7 @@
             android:layout_height="wrap_content"
             android:layout_weight=".7"
             android:imeOptions="actionDone"
+            android:hint="min. 8 characters"
             android:inputType="textPassword"
             android:singleLine="true" />
     </LinearLayout>

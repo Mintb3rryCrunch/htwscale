@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -259,6 +261,7 @@ public class LoginGui extends AppCompatActivity implements TextWatcher,
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
+
                 String name = etVorname.getText().toString();
                 String nachname = etNachname.getText().toString();
                 String birthday = etBirthday.getText().toString();
@@ -278,9 +281,20 @@ public class LoginGui extends AppCompatActivity implements TextWatcher,
                 String password = etPassword.getText().toString();
                 String type = "register";
 
-                loading = ProgressDialog.show(LoginGui.this, "Please Wait...",null,true,true);
+                if(!TextUtils.isEmpty(name) && !TextUtils.isEmpty(nachname) && !TextUtils.isEmpty(birthday) && !username.equals(username.toUpperCase()) && password.length() >= 8 )
+                {
+                    loginhelper.execute(type, name, nachname, birthday, gender, username, password, groesse);
+                    loading = ProgressDialog.show(LoginGui.this, "Please Wait...",null,true,true);
+                }
+                else
+                {
+                    Toast.makeText(getBaseContext(), "Registration failed, please follow the construction", Toast.LENGTH_LONG).show();
+                }
 
-                loginhelper.execute(type, name, nachname, birthday, gender, username, password, groesse);
+
+
+
+
             }
         });
         AlertDialog dialog = alert.create();
