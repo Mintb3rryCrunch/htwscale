@@ -96,7 +96,7 @@ public class OnlineActivity extends AppCompatActivity {
         txtBMR = (TextView) findViewById(R.id.BMROut);
 
         getJson();
-        checkBtPermissions();
+        //checkBtPermissions();
 
     }
 
@@ -234,7 +234,7 @@ public class OnlineActivity extends AppCompatActivity {
         setBluetoothStatusIcon(R.mipmap.bluetooth_searching);
 
         UserBtHelp.getInstance(getApplicationContext()).stopSearchingForBluetooth();
-        checkBtPermissions();
+        //checkBtPermissions();
         UserBtHelp.getInstance(getApplicationContext()).startSearchingForBluetooth(Integer.parseInt(deviceType), deviceName, callbackBtHandler);
     }
 
@@ -308,7 +308,7 @@ public class OnlineActivity extends AppCompatActivity {
             }
         }
     };
-
+    /*
     public void checkBtPermissions()
     {
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP)
@@ -319,7 +319,7 @@ public class OnlineActivity extends AppCompatActivity {
                 this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1001);
         }
     }
-
+    */
 
 
 }

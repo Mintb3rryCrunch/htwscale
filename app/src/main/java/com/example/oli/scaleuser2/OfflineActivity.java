@@ -89,7 +89,7 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
         check_user();
         updateSpinner();
         viewUser();
-        checkBtPermissions();
+        //checkBtPermissions();
 
     }
 
@@ -527,7 +527,7 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
         setBluetoothStatusIcon(R.mipmap.bluetooth_searching);
 
         UserBtHelp.getInstance(getApplicationContext()).stopSearchingForBluetooth();
-        checkBtPermissions();
+        //checkBtPermissions();
         UserBtHelp.getInstance(getApplicationContext()).startSearchingForBluetooth(Integer.parseInt(deviceType), deviceName, callbackBtHandler);
     }
 
@@ -619,7 +619,7 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
             }
         }
     };
-
+    /*
     public void checkBtPermissions()
     {
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP)
@@ -630,6 +630,7 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
                 this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1001);
         }
     }
+    */
 
 
     @Override
