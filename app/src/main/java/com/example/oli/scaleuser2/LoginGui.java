@@ -1,5 +1,6 @@
 package com.example.oli.scaleuser2;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -7,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -74,8 +76,7 @@ public class LoginGui extends AppCompatActivity implements TextWatcher,
         passwd.addTextChangedListener(this);
         rem_userpass.setOnCheckedChangeListener(this);
 
-
-
+        checkBtPermissions();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
@@ -299,6 +300,17 @@ public class LoginGui extends AppCompatActivity implements TextWatcher,
         });
         AlertDialog dialog = alert.create();
         dialog.show();
+    }
+
+    public void checkBtPermissions()
+    {
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP)
+        {
+            int permissionCheck = this.checkCallingOrSelfPermission("Manifest.permission.ACCESS_FINE_LOCATION");
+            permissionCheck += this.checkSelfPermission("Manifest.permission.ACCESS_COARSE_LOCATION");
+            if(permissionCheck != 0)
+                this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1001);
+        }
     }
 
 
