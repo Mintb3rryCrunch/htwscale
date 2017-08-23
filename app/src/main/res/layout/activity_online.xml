@@ -118,57 +118,85 @@
     </LinearLayout>
 
 
-    <LinearLayout
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:layout_marginTop="10dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.04"
+            android:layout_weight="0.02"
             android:text="" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:textSize="20sp"
             android:text="Weight" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.07"
+            android:layout_weight="0.06"
             android:text="" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:text="BMR"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.04"
+            android:layout_weight="0.06"
+            android:text="" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:textSize="20sp"
             android:text="BMI" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.04"
+            android:layout_weight="0.02"
             android:text="" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    </TableRow>
+
+    <!--/TableLayout>
+
+    <TableLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginTop="5dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"-->
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.07"
+            android:layout_weight="0.02"
             android:text="" />
+
 
         <TextView
             android:id="@+id/gewichtOut"
@@ -183,7 +211,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.07"
+            android:layout_weight="0.06"
             android:text="" />
 
         <TextView
@@ -199,14 +227,13 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.07"
+            android:layout_weight="0.06"
             android:text="" />
 
         <TextView
             android:id="@+id/BMIOut"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:layout_marginTop="0dp"
             android:background="@drawable/circle_green"
             android:gravity="center"
             android:text=""
@@ -216,9 +243,11 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.07"
+            android:layout_weight="0.02"
             android:text="" />
-    </LinearLayout>
+
+        </TableRow>
+    </TableLayout>
 
 
 
