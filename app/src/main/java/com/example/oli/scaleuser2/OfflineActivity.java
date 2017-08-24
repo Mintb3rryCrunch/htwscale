@@ -1,6 +1,5 @@
 package com.example.oli.scaleuser2;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.bluetooth.BluetoothAdapter;
@@ -11,7 +10,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,13 +32,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
-import static com.example.oli.scaleuser2.R.id.add_user;
 import static com.example.oli.scaleuser2.R.id.et_birthday;
 import static com.example.oli.scaleuser2.R.id.et_nachname;
 import static com.example.oli.scaleuser2.R.id.et_vorname;
@@ -353,9 +347,31 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
 
         final EditText etVorname     = (EditText) alertLayout.findViewById(et_vorname);
         final EditText etNachname     = (EditText) alertLayout.findViewById(et_nachname);
+        final EditText etBirthday     = (EditText) alertLayout.findViewById(et_birthday);
         final SeekBar groesseIn = (SeekBar) alertLayout.findViewById(R.id.groesseBar);
         final TextView groesseOut = (TextView) alertLayout.findViewById(R.id.groesseCm);
         final RadioGroup radioGroupGender = (RadioGroup) alertLayout.findViewById(R.id.radioGender);
+        final Context context;
+        context = this;
+
+        etBirthday.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    Calendar cal = Calendar.getInstance();
+                    final DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
+                            //etBirthday.setText(String.format("%02d.%02d.%04d", selectedDay, selectedMonth + 1, selectedYear));
+                            etBirthday.setText(String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay));
+                        }
+                    };
+
+                    DatePickerDialog datePicker = new DatePickerDialog(context, datePickerListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+                    datePicker.show();
+                }
+            }
+        });
 
         int progress = 150;
         int progressMin = 120;
@@ -410,6 +426,7 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
 
                 String vorname = etVorname.getText().toString();
                 String nachname = etNachname.getText().toString();
+                String birthday = etBirthday.getText().toString();
                 String groesse = groesseOut.getText().toString();
 
                 int selectedId = radioGroupGender.getCheckedRadioButtonId();
@@ -432,7 +449,7 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
                     int spinnerId = spinner.getSelectedItemPosition();
 
                     if (rowNumber == spinnerId) {
-                        boolean isUpdate = myDb.updateData(String.valueOf(dbId), vorname, nachname, gender, groesse);
+                        boolean isUpdate = myDb.updateData(String.valueOf(dbId), vorname, nachname, birthday, gender, groesse);
                         if (isUpdate == true) {
                             Toast.makeText(OfflineActivity.this, "Data Updated", Toast.LENGTH_LONG).show();
                             viewUser();

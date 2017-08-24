@@ -102,7 +102,7 @@ public class UserDatabase extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public boolean updateData(String id, String name, String surname, String gender, String height)
+    public boolean updateData(String id, String name, String surname, String birthday, String gender, String height)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -115,6 +115,8 @@ public class UserDatabase extends SQLiteOpenHelper {
         {
             contentValues.put(COl_3, surname);
         }
+
+        contentValues.put(COl_4, birthday);
 
         contentValues.put(COl_5,gender);
 

@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
        // AddData();
         updateSpinner();
         viewData();
-        update_Data();
+        //update_Data();
         delete_Data();
         checkBtPermissions();
 
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
     */
 
-    public void update_Data() {
+    /*public void update_Data() {
         btnUpdate.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     }
                 }
         );
-    }
+    }*/
 
     public void updateSpinner() {
         names.clear();
