@@ -157,7 +157,7 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
                         Toast.makeText(OfflineActivity.this, "Data Weight not Updated", Toast.LENGTH_LONG).show();
                     }
                 }
-                viewUser();
+                animBtData();
             }
         }
     }
@@ -223,6 +223,13 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
 
             }
         }
+    }
+
+    private void animBtData()
+    {
+        txtGewicht.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
+        txtBMR.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
+        txtBMI.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
     }
 
     public void AddUser(){
