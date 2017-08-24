@@ -9,6 +9,7 @@
         android:layout_width="205dp"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:textColor="#070303"
         android:textSize="20sp"
         android:text="User:" />
 
@@ -129,6 +130,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textColor="#070303"
             android:textSize="20sp"
             android:text="Weight" />
 
@@ -142,6 +144,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textColor="#070303"
             android:textSize="20sp"
             android:text="BMR" />
 
@@ -155,6 +158,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textColor="#070303"
             android:textSize="20sp"
             android:text="BMI" />
 

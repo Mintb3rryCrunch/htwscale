@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginTop="10dp"
+        android:textColor="#070303"
         android:textSize="20sp"
         android:text="User:" />
 
@@ -122,7 +123,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="15dp">
 
         <TableRow
             android:layout_width="match_parent"
@@ -139,6 +140,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textColor="#070303"
             android:textSize="20sp"
             android:text="Weight" />
 
@@ -152,6 +155,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textColor="#070303"
             android:textSize="20sp"
             android:text="BMR"/>
 
@@ -166,6 +171,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textColor="#070303"
             android:textSize="20sp"
             android:text="BMI" />
 
@@ -177,18 +184,12 @@
 
     </TableRow>
 
-    <!--/TableLayout>
 
-    <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal"-->
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:layout_gravity="center_horizontal">
 
         <TextView
