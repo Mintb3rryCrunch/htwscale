@@ -59,7 +59,6 @@ public class OnlineActivity extends AppCompatActivity {
         FabRClockwise = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_clockwise);
         FabRanticlockwise = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_anticlockwise);
 
-
         myFabOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
