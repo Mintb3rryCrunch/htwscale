@@ -256,7 +256,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
         android:weightSum="1">
         <android.support.design.widget.CoordinatorLayout
@@ -282,8 +282,7 @@
             android:layout_height="wrap_content"
             android:src="@mipmap/timeline"
             android:layout_gravity="bottom|end"
-            android:layout_marginRight="6dp"
-            android:layout_marginBottom="60dp"
+            android:layout_marginRight="125dp"
             android:elevation="0dp"
             android:onClick="onTimeline"
             android:visibility="invisible"

@@ -103,11 +103,23 @@ public class OnlineActivity extends AppCompatActivity {
     public void onTimeline(View v) {
         final Intent intent = new Intent(OnlineActivity.this, TimelineActivity.class);
         startActivity(intent);
+        myFab.startAnimation(FabClose);
+        myFabCommunity.startAnimation(FabClose);
+        myFabOption.startAnimation(FabRanticlockwise);
+        myFab.setClickable(false);
+        myFabCommunity.setClickable(false);
+        isOpen = false;
     }
 
     public void onCommunity(View v){
         final Intent intent = new Intent(OnlineActivity.this, CommunityActivity.class);
         startActivity(intent);
+        myFab.startAnimation(FabClose);
+        myFabCommunity.startAnimation(FabClose);
+        myFabOption.startAnimation(FabRanticlockwise);
+        myFab.setClickable(false);
+        myFabCommunity.setClickable(false);
+        isOpen = false;
     }
 
     private void getJson(){
