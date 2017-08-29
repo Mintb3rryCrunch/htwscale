@@ -221,12 +221,12 @@ class OnlineHelper extends AsyncTask<String, Void, String>
         }
         if(result.contains("timeline"))
         {
-            TimelineActivity.txtJson.setText(result);
+            //TimelineActivity.txtJson.setText(result);
             TimelineActivity.parse(result);
         }
         if(result.contains("community"))
         {
-            CommunityActivity.txtJson.setText(result);
+            //CommunityActivity.txtJson.setText(result);
             CommunityActivity.parse(result);
         }
 

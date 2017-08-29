@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
@@ -30,7 +30,7 @@ public class CommunityActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_community);
 
-        txtJson = (TextView) findViewById(R.id.json_community);
+        //txtJson = (TextView) findViewById(R.id.json_community);
         graph = (GraphView) findViewById(R.id.communityGraph);
 
         //graph.getViewport().setScalable(true);
@@ -60,9 +60,6 @@ public class CommunityActivity extends AppCompatActivity {
         staticLabelsFormatter.setHorizontalLabels(hLabels);
         graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
         graph.getGridLabelRenderer().setNumHorizontalLabels(historySize);
-
-
-
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinX(0);
         graph.getViewport().setMaxX((double) historySize - 1);
@@ -114,6 +111,9 @@ public class CommunityActivity extends AppCompatActivity {
             series2.setSpacing(60);
             series2.setAnimated(true);
             series2.setColor(Color.rgb(63, 81, 181));
+            series2.setTitle("Weight");
+            graph.getLegendRenderer().setVisible(true);
+            graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
 
             graph.addSeries(series2);
 

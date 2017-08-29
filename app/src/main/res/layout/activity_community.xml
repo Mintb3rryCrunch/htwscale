@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:gravity="center"
     android:layout_height="match_parent"
     android:weightSum="1">
 
     <TextView
-        android:id="@+id/json_community"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="" />
+        android:layout_gravity="center"
+        android:background="@drawable/offline_txt"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:text="   Community Statistics   " />
 
     <com.jjoe64.graphview.GraphView
         android:layout_width="match_parent"
         android:layout_height="200dip"
         android:id="@+id/communityGraph"
+        android:layout_marginTop="15dp"
         android:layout_weight="0.70" />
 
 </LinearLayout>

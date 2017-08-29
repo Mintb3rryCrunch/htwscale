@@ -7,8 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
@@ -42,7 +42,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         thisActivity = this;
 
-        txtJson = (TextView) findViewById(R.id.json_timeline);
+        //txtJson = (TextView) findViewById(R.id.json_timeline);
         txtBegin = (TextView) findViewById(R.id.firstDate);
         txtEnd = (TextView) findViewById(R.id.lastDate);
         graph = (GraphView) findViewById(R.id.timelineGraph);
@@ -184,6 +184,9 @@ public class TimelineActivity extends AppCompatActivity {
                 series.setAnimated(true);
                 series.setColor(Color.rgb(255, 64, 129));
                 series.setThickness(8);
+                series.setTitle("Weight");
+                graph.getLegendRenderer().setVisible(true);
+                graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
 
                 graph.addSeries(series);
 
