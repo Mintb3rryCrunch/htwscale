@@ -113,6 +113,7 @@ public class CommunityActivity extends AppCompatActivity {
             series2.setColor(Color.rgb(63, 81, 181));
             series2.setTitle("Weight");
             graph.getLegendRenderer().setVisible(true);
+            graph.getLegendRenderer().setBackgroundColor(Color.rgb(223, 223, 223));
             graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
 
             graph.addSeries(series2);

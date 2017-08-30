@@ -1,6 +1,5 @@
 package com.example.oli.scaleuser2;
 
-import android.Manifest;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
@@ -8,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -191,7 +189,7 @@ public class OnlineActivity extends AppCompatActivity {
         txtBMI.setText(bmi);
         txtBMI.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
 
-        bmr = Calculator.BMR_Calculcator(gewicht, groesse, age, gender);
+        bmr = Calculator.BMR_Calculator(gewicht, groesse, age, gender);
         txtBMR.setText(bmr);
         txtBMR.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
     }

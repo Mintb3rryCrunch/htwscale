@@ -188,7 +188,7 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
 
                 long age = Calculator.age_Calculator(birthday);
                 String bmi = Calculator.BMI_Calculator(weight, height);
-                String bmr = Calculator.BMR_Calculcator(weight, height, age, gender);
+                String bmr = Calculator.BMR_Calculator(weight, height, age, gender);
 
 
                 //AUSGABE

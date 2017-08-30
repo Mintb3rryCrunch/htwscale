@@ -1,7 +1,5 @@
 package com.example.oli.scaleuser2;
 
-import android.view.animation.AnimationUtils;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -45,7 +43,7 @@ public class Calculator {
         return Float.toString(BMI);
     }
 
-    public static String BMR_Calculcator(String weight, String height, long age, String gender)
+    public static String BMR_Calculator(String weight, String height, long age, String gender)
     {
         double BMR;
 
