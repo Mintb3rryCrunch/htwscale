@@ -50,6 +50,16 @@ public class OnlineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_online);
 
+        txtName = (TextView) findViewById(R.id.nameOut);
+        txtSurname = (TextView) findViewById(R.id.surnameOut);
+        txtBirthday = (TextView) findViewById(R.id.ageOut);
+        txtGender = (TextView) findViewById(R.id.genderOut);
+        txtGroesse = (TextView) findViewById(R.id.groesseOut);
+        txtGewicht = (TextView) findViewById(R.id.gewichtOut);
+        txtBMI = (TextView) findViewById(R.id.BMIOut);
+        txtBMR = (TextView) findViewById(R.id.BMROut);
+
+        getJson();
 
         myFabOption = (FloatingActionButton) findViewById(R.id.myFabOption);
         myFab = (FloatingActionButton) findViewById(R.id.myFAB);
@@ -65,60 +75,53 @@ public class OnlineActivity extends AppCompatActivity {
 
                 if(isOpen)
                 {
-                    myFab.startAnimation(FabClose);
-                    myFabCommunity.startAnimation(FabClose);
-                    myFabOption.startAnimation(FabRanticlockwise);
-                    myFab.setClickable(false);
-                    myFabCommunity.setClickable(false);
-                    isOpen = false;
+                   fabCloseAnimation();
                 }
                 else
                 {
-                    myFab.startAnimation(FabOpen);
-                    myFabCommunity.startAnimation(FabOpen);
-                    myFabOption.startAnimation(FabRClockwise);
-                    myFab.setClickable(true);
-                    myFabCommunity.setClickable(true);
-                    isOpen = true;
+                   fabOpenAnimation();
                 }
 
             }
         });
 
-        txtName = (TextView) findViewById(R.id.nameOut);
-        txtSurname = (TextView) findViewById(R.id.surnameOut);
-        txtBirthday = (TextView) findViewById(R.id.ageOut);
-        txtGender = (TextView) findViewById(R.id.genderOut);
-        txtGroesse = (TextView) findViewById(R.id.groesseOut);
-        txtGewicht = (TextView) findViewById(R.id.gewichtOut);
-        txtBMI = (TextView) findViewById(R.id.BMIOut);
-        txtBMR = (TextView) findViewById(R.id.BMROut);
-
-        getJson();
         //checkBtPermissions();
 
     }
 
-    public void onTimeline(View v) {
-        final Intent intent = new Intent(OnlineActivity.this, TimelineActivity.class);
-        startActivity(intent);
+    public void fabOpenAnimation()
+    {
+        myFab.startAnimation(FabOpen);
+        myFabCommunity.startAnimation(FabOpen);
+        myFabOption.startAnimation(FabRClockwise);
+        myFab.setClickable(true);
+        myFabCommunity.setClickable(true);
+        isOpen = true;
+    }
+
+    public void fabCloseAnimation()
+    {
         myFab.startAnimation(FabClose);
         myFabCommunity.startAnimation(FabClose);
         myFabOption.startAnimation(FabRanticlockwise);
         myFab.setClickable(false);
         myFabCommunity.setClickable(false);
         isOpen = false;
+    }
+
+
+    public void onTimeline(View v) {
+        final Intent intent = new Intent(OnlineActivity.this, TimelineActivity.class);
+        startActivity(intent);
+        fabCloseAnimation();
+
+
     }
 
     public void onCommunity(View v){
         final Intent intent = new Intent(OnlineActivity.this, CommunityActivity.class);
         startActivity(intent);
-        myFab.startAnimation(FabClose);
-        myFabCommunity.startAnimation(FabClose);
-        myFabOption.startAnimation(FabRanticlockwise);
-        myFab.setClickable(false);
-        myFabCommunity.setClickable(false);
-        isOpen = false;
+        fabCloseAnimation();
     }
 
     private void getJson(){

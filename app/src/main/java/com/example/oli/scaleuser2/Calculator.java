@@ -71,4 +71,24 @@ public class Calculator {
 
 
     }
+
+    public static String idealWeight(String gender, String height)
+    {
+        double iW = 0.0;
+        float calc_height = Float.parseFloat(height);
+        float normalWeight = calc_height;
+        normalWeight = normalWeight - 100.0f;
+        if(gender.contains(("Female")))
+        {
+
+            iW = normalWeight * 0.85;
+            return Double.toString(iW);
+        }
+        else
+        {
+            iW = normalWeight * 0.9;
+            return Double.toString(iW);
+        }
+
+    }
 }

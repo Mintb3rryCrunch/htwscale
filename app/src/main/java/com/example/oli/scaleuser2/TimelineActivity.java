@@ -20,6 +20,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ResourceBundle;
+
 
 /**
  * Created by Oli on 22.07.2017.
@@ -33,7 +35,7 @@ public class TimelineActivity extends AppCompatActivity {
     ProgressDialog loading;
 
     static String[] hLabels, emptyLabels;
-
+    public static String ideal;
     public static GraphView graph;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,6 @@ public class TimelineActivity extends AppCompatActivity {
 
         thisActivity = this;
 
-        //txtJson = (TextView) findViewById(R.id.json_timeline);
         txtBegin = (TextView) findViewById(R.id.firstDate);
         txtEnd = (TextView) findViewById(R.id.lastDate);
         graph = (GraphView) findViewById(R.id.timelineGraph);
@@ -58,6 +59,8 @@ public class TimelineActivity extends AppCompatActivity {
 
 
 
+
+
         getJson();
     }
 
@@ -69,7 +72,6 @@ public class TimelineActivity extends AppCompatActivity {
         DataPoint[] dp = new DataPoint[historySize];
         hLabels = new String[UserList.listDatum.size()];
         emptyLabels = new String[UserList.listDatum.size()];
-
         for (int i = 0; i < historySize; i++) {
             String dateString = UserList.getItemDatum(i).toString();
             double gewichtGraph = Double.parseDouble(UserList.getItemGewichtTimeline(i).toString());
@@ -78,11 +80,6 @@ public class TimelineActivity extends AppCompatActivity {
             hLabels[i] = dateString;
             emptyLabels[i] = "";
         }
-
-
-
-
-
 
 
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
@@ -127,6 +124,28 @@ public class TimelineActivity extends AppCompatActivity {
 
 
     }
+
+    private static DataPoint[] getDataPoint2() {
+
+        int historySize = UserList.listGewichtTimeline.size();
+        DataPoint[] dp = new DataPoint[historySize];
+        //hLabels = new String[UserList.listDatum.size()];
+        //emptyLabels = new String[UserList.listDatum.size()];
+        String gender = OnlineActivity.gender;
+        String height = OnlineActivity.groesse;
+        ideal = Calculator.idealWeight(gender, height);
+        double gewichtGraph = Double.parseDouble(Calculator.idealWeight(gender, height));
+        for (int i = 0; i < historySize; i++) {
+            //String dateString = UserList.getItemDatum(i).toString()
+            DataPoint v = new DataPoint(i, gewichtGraph);
+            dp[i] = v;
+            //hLabels[i] = dateString;
+            //emptyLabels[i] = "";
+
+        }
+        return dp;
+    }
+
 
     private void getJson()
     {
@@ -176,6 +195,8 @@ public class TimelineActivity extends AppCompatActivity {
             }
 
 
+
+
             if (UserList.listGewichtTimeline.size() > 1)
             {
                 LineGraphSeries series = new LineGraphSeries(getDataPoint());
@@ -185,10 +206,23 @@ public class TimelineActivity extends AppCompatActivity {
                 series.setColor(Color.rgb(255, 64, 129));
                 series.setThickness(8);
                 series.setTitle("Weight");
+
                 graph.getLegendRenderer().setVisible(true);
+                graph.getLegendRenderer().setBackgroundColor(Color.rgb(223, 223, 223));
                 graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
 
+
+
+                LineGraphSeries series2 = new LineGraphSeries(getDataPoint2());
+                series2.setAnimated(true);
+                series2.setColor(Color.rgb(63, 81, 181));
+                series2.setThickness(8);
+                series2.setDrawBackground(true);
+                series2.setTitle("Ideal weight = " +ideal+ " Kg");
+
+                //series2.setBackgroundColor(Color.rgb(63, 81, 181));
                 graph.addSeries(series);
+                graph.addSeries(series2);
 
                 series.setOnDataPointTapListener(new OnDataPointTapListener() {
                     @Override
