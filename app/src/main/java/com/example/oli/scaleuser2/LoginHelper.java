@@ -36,8 +36,8 @@ public class LoginHelper extends AsyncTask<String, Void, String> {
         String type = params[0];
         //String login_url =      "http://10.9.40.159:80/webapp/login.php";
         //String register_url =   "http://10.9.40.159:80/webapp/register.php";
-        String login_url = "http://10.9.42.55:80/webapp/login.php";
-        String register_url = "http://10.9.42.55:80/webapp/register.php";
+        String login_url = "http://10.9.40.169:80/webapp/login.php";
+        String register_url = "http://10.9.40.169:80/webapp/register.php";
         //String login_url = "http://192.168.0.12:80/webapp/login.php";
         //String register_url = "http://192.168.0.12:80/webapp/register.php";
 
