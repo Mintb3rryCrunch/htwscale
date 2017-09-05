@@ -36,6 +36,7 @@ public class OnlineActivity extends AppCompatActivity {
 
     public static String user_id, name, surname, birthday, gender, username, groesse, gewicht, bmi, bmr;
     private static long age;
+    public  static String bmiTable;
 
     public static MenuItem bluetoothStatus, uploadData;
     public static int bluetoothStatusIcon = R.mipmap.bluetooth_disabled, uploadDataIcon = R.mipmap.update_data;
@@ -187,6 +188,8 @@ public class OnlineActivity extends AppCompatActivity {
         //Toast.makeText(MainActivity.this, "Weightdata: " +weight, Toast.LENGTH_LONG).show();
         bmi = Calculator.BMI_Calculator(gewicht, groesse);
         txtBMI.setText(bmi);
+        bmiTable = Calculator.bmiTable(gender, bmi, age);
+        Toast.makeText(OnlineActivity.this, "Bmi-Bedeutung:" +bmiTable, Toast.LENGTH_LONG).show();
         txtBMI.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
 
         bmr = Calculator.BMR_Calculator(gewicht, groesse, age, gender);

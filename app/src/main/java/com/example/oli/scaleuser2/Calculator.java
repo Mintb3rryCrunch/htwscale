@@ -89,4 +89,348 @@ public class Calculator {
         }
 
     }
+
+    //Bedeutung der BMI Tabelle
+    public static String bmiTable(String gender, String bmi, long age)
+    {
+        String res = "";
+        float parse_bmi = Float.parseFloat(bmi);
+        if(gender.contains("Female"))
+        {
+            //float parse_bmi = Float.parseFloat(bmi);
+            if(age>=18 && age<=24)
+
+            {
+
+                if(parse_bmi < 19.0)
+                {
+                    res = "Untergewicht";
+                }
+                else if(parse_bmi>=19.0 && parse_bmi<24.0)
+                {
+                    res = "Normalgewicht";
+                }
+                else if(parse_bmi>=24.0 && parse_bmi<29.0)
+                {
+                    res = "Etwas Übergewicht";
+                }
+                else if(parse_bmi>=29.0 && parse_bmi<39.0)
+                {
+                    res = "Übergewicht";
+                }
+                else if(parse_bmi >= 39.0)
+                {
+                    res = "Adipositas";
+                }
+
+            }
+
+            if(age>=25 && age<=34)
+
+            {
+
+                if(parse_bmi < 20.0)
+                {
+                    res = "Untergewicht";
+                }
+                else if(parse_bmi>=20.0 && parse_bmi<25.0)
+                {
+                    res = "Normalgewicht";
+                }
+                else if(parse_bmi>=25.0 && parse_bmi<30.0)
+                {
+                    res = "Etwas Übergewicht";
+                }
+                else if(parse_bmi>=30.0 && parse_bmi<40.0)
+                {
+                    res = "Übergewicht";
+                }
+                else if(parse_bmi >= 40.0)
+                {
+                    res = "Adipositas";
+                }
+
+            }
+
+            if(age>=35 && age<=44)
+
+            {
+
+                if(parse_bmi < 21.0)
+                {
+                    res = "Untergewicht";
+                }
+                else if(parse_bmi>=21.0 && parse_bmi<26.0)
+                {
+                    res = "Normalgewicht";
+                }
+                else if(parse_bmi>=26.0 && parse_bmi<31.0)
+                {
+                    res = "Etwas Übergewicht";
+                }
+                else if(parse_bmi>=31.0 && parse_bmi<41.0)
+                {
+                    res = "Übergewicht";
+                }
+                else if(parse_bmi >= 41.0)
+                {
+                    res = "Adipositas";
+                }
+
+            }
+
+            if(age>=45 && age<=54)
+
+            {
+
+                if(parse_bmi < 22.0)
+                {
+                    res = "Untergewicht";
+                }
+                else if(parse_bmi>=22.0 && parse_bmi<27.0)
+                {
+                    res = "Normalgewicht";
+                }
+                else if(parse_bmi>=27.0 && parse_bmi<32.0)
+                {
+                    res = "Etwas Übergewicht";
+                }
+                else if(parse_bmi>=32.0 && parse_bmi<42.0)
+                {
+                    res = "Übergewicht";
+                }
+                else if(parse_bmi >= 42.0)
+                {
+                    res = "Adipositas";
+                }
+
+            }
+
+            if(age>=55 && age<=64)
+
+            {
+
+                if(parse_bmi < 23.0)
+                {
+                    res = "Untergewicht";
+                }
+                else if(parse_bmi>=23.0 && parse_bmi<28.0)
+                {
+                    res = "Normalgewicht";
+                }
+                else if(parse_bmi>=28.0 && parse_bmi<33.0)
+                {
+                    res = "Etwas Übergewicht";
+                }
+                else if(parse_bmi>=33.0 && parse_bmi<43.0)
+                {
+                    res = "Übergewicht";
+                }
+                else if(parse_bmi >= 43.0)
+                {
+                    res = "Adipositas";
+                }
+
+            }
+
+            else if(age>=65)
+
+            {
+
+                if(parse_bmi < 24.0)
+                {
+                    res = "Untergewicht";
+                }
+                else if(parse_bmi>=24.0 && parse_bmi<29.0)
+                {
+                    res = "Normalgewicht";
+                }
+                else if(parse_bmi>=29.0 && parse_bmi<34.0)
+                {
+                    res = "Etwas Übergewicht";
+                }
+                else if(parse_bmi>=34.0 && parse_bmi<44.0)
+                {
+                    res = "Übergewicht";
+                }
+                else if(parse_bmi >= 44.0)
+                {
+                    res = "Adipositas";
+                }
+
+            }
+
+        }
+
+        else
+        {
+            //float parse_bmi = Float.parseFloat(bmi);
+            if(age>=18 && age<=24)
+
+            {
+
+                if(parse_bmi < 20.0)
+                {
+                    res = "Untergewicht";
+                }
+                else if(parse_bmi>=20.0 && parse_bmi<25.0)
+                {
+                    res = "Normalgewicht";
+                }
+                else if(parse_bmi>=25.0 && parse_bmi<30.0)
+                {
+                    res = "Etwas Übergewicht";
+                }
+                else if(parse_bmi>=30.0 && parse_bmi<40.0)
+                {
+                    res = "Übergewicht";
+                }
+                else if(parse_bmi >= 40.0)
+                {
+                    res = "Adipositas";
+                }
+
+            }
+
+            if(age>=25 && age<=34)
+
+            {
+
+                if(parse_bmi < 21.0)
+                {
+                    res = "Untergewicht";
+                }
+                else if(parse_bmi>=21.0 && parse_bmi<26.0)
+                {
+                    res = "Normalgewicht";
+                }
+                else if(parse_bmi>=26.0 && parse_bmi<31.0)
+                {
+                    res = "Etwas Übergewicht";
+                }
+                else if(parse_bmi>=31.0 && parse_bmi<41.0)
+                {
+                    res = "Übergewicht";
+                }
+                else if(parse_bmi >= 41.0)
+                {
+                    res = "Adipositas";
+                }
+
+            }
+
+            if(age>=35 && age<=44)
+
+            {
+
+                if(parse_bmi < 22.0)
+                {
+                    res = "Untergewicht";
+                }
+                else if(parse_bmi>=22.0 && parse_bmi<27.0)
+                {
+                    res = "Normalgewicht";
+                }
+                else if(parse_bmi>=27.0 && parse_bmi<32.0)
+                {
+                    res = "Etwas Übergewicht";
+                }
+                else if(parse_bmi>=32.0 && parse_bmi<42.0)
+                {
+                    res = "Übergewicht";
+                }
+                else if(parse_bmi >= 42.0)
+                {
+                    res = "Adipositas";
+                }
+
+            }
+
+            if(age>=45 && age<=54)
+
+            {
+
+                if(parse_bmi < 23.0)
+                {
+                    res = "Untergewicht";
+                }
+                else if(parse_bmi>=23.0 && parse_bmi<28.0)
+                {
+                    res = "Normalgewicht";
+                }
+                else if(parse_bmi>=28.0 && parse_bmi<33.0)
+                {
+                    res = "Etwas Übergewicht";
+                }
+                else if(parse_bmi>=33.0 && parse_bmi<43.0)
+                {
+                    res = "Übergewicht";
+                }
+                else if(parse_bmi >= 43.0)
+                {
+                    res = "Adipositas";
+                }
+
+            }
+
+            if(age>=55 && age<=64)
+
+            {
+
+                if(parse_bmi < 24.0)
+                {
+                    res = "Untergewicht";
+                }
+                else if(parse_bmi>=24.0 && parse_bmi<29.0)
+                {
+                    res = "Normalgewicht";
+                }
+                else if(parse_bmi>=29.0 && parse_bmi<34.0)
+                {
+                    res = "Etwas Übergewicht";
+                }
+                else if(parse_bmi>=34.0 && parse_bmi<44.0)
+                {
+                    res = "Übergewicht";
+                }
+                else if(parse_bmi >= 44.0)
+                {
+                    res = "Adipositas";
+                }
+
+            }
+
+            else if(age>=65)
+
+            {
+
+                if(parse_bmi < 25.0)
+                {
+                    res = "Untergewicht";
+                }
+                else if(parse_bmi>=25.0 && parse_bmi<30.0)
+                {
+                    res = "Normalgewicht";
+                }
+                else if(parse_bmi>=30.0 && parse_bmi<35.0)
+                {
+                    res = "Etwas Übergewicht";
+                }
+                else if(parse_bmi>=35.0 && parse_bmi<45.0)
+                {
+                    res = "Übergewicht";
+                }
+                else if(parse_bmi >= 45.0)
+                {
+                    res = "Adipositas";
+                }
+
+            }
+
+        }
+
+        return res;
+
+    }
+
 }
