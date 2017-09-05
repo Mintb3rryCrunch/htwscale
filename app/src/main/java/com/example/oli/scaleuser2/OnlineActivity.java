@@ -189,7 +189,7 @@ public class OnlineActivity extends AppCompatActivity {
         bmi = Calculator.BMI_Calculator(gewicht, groesse);
         txtBMI.setText(bmi);
         bmiTable = Calculator.bmiTable(gender, bmi, age);
-        Toast.makeText(OnlineActivity.this, "Bmi-Bedeutung:" +bmiTable, Toast.LENGTH_LONG).show();
+        Toast.makeText(OnlineActivity.this, "Bmi Categorie: " +bmiTable, Toast.LENGTH_LONG).show();
         txtBMI.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
 
         bmr = Calculator.BMR_Calculator(gewicht, groesse, age, gender);

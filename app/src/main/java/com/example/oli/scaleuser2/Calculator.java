@@ -104,23 +104,23 @@ public class Calculator {
 
                 if(parse_bmi < 19.0)
                 {
-                    res = "Untergewicht";
+                    res = "Underweight";
                 }
                 else if(parse_bmi>=19.0 && parse_bmi<24.0)
                 {
-                    res = "Normalgewicht";
+                    res = "Normal weight";
                 }
                 else if(parse_bmi>=24.0 && parse_bmi<29.0)
                 {
-                    res = "Etwas Übergewicht";
+                    res = "slightly Overweight";
                 }
                 else if(parse_bmi>=29.0 && parse_bmi<39.0)
                 {
-                    res = "Übergewicht";
+                    res = "Overweight";
                 }
                 else if(parse_bmi >= 39.0)
                 {
-                    res = "Adipositas";
+                    res = "Obesity";
                 }
 
             }
@@ -131,23 +131,23 @@ public class Calculator {
 
                 if(parse_bmi < 20.0)
                 {
-                    res = "Untergewicht";
+                    res = "Underweight";
                 }
                 else if(parse_bmi>=20.0 && parse_bmi<25.0)
                 {
-                    res = "Normalgewicht";
+                    res = "Normal weight";
                 }
                 else if(parse_bmi>=25.0 && parse_bmi<30.0)
                 {
-                    res = "Etwas Übergewicht";
+                    res = "slightly Overweight";
                 }
                 else if(parse_bmi>=30.0 && parse_bmi<40.0)
                 {
-                    res = "Übergewicht";
+                    res = "Overweight";
                 }
                 else if(parse_bmi >= 40.0)
                 {
-                    res = "Adipositas";
+                    res = "Obesity";
                 }
 
             }
@@ -158,23 +158,23 @@ public class Calculator {
 
                 if(parse_bmi < 21.0)
                 {
-                    res = "Untergewicht";
+                    res = "Underweight";
                 }
                 else if(parse_bmi>=21.0 && parse_bmi<26.0)
                 {
-                    res = "Normalgewicht";
+                    res = "Normal weight";
                 }
                 else if(parse_bmi>=26.0 && parse_bmi<31.0)
                 {
-                    res = "Etwas Übergewicht";
+                    res = "slightly Overweight";
                 }
                 else if(parse_bmi>=31.0 && parse_bmi<41.0)
                 {
-                    res = "Übergewicht";
+                    res = "Overweight";
                 }
                 else if(parse_bmi >= 41.0)
                 {
-                    res = "Adipositas";
+                    res = "Obesity";
                 }
 
             }
@@ -185,23 +185,23 @@ public class Calculator {
 
                 if(parse_bmi < 22.0)
                 {
-                    res = "Untergewicht";
+                    res = "Underweight";
                 }
                 else if(parse_bmi>=22.0 && parse_bmi<27.0)
                 {
-                    res = "Normalgewicht";
+                    res = "Normal weight";
                 }
                 else if(parse_bmi>=27.0 && parse_bmi<32.0)
                 {
-                    res = "Etwas Übergewicht";
+                    res = "slightly Overweight";
                 }
                 else if(parse_bmi>=32.0 && parse_bmi<42.0)
                 {
-                    res = "Übergewicht";
+                    res = "Overweight";
                 }
                 else if(parse_bmi >= 42.0)
                 {
-                    res = "Adipositas";
+                    res = "Obesity";
                 }
 
             }
@@ -212,23 +212,23 @@ public class Calculator {
 
                 if(parse_bmi < 23.0)
                 {
-                    res = "Untergewicht";
+                    res = "Underweight";
                 }
                 else if(parse_bmi>=23.0 && parse_bmi<28.0)
                 {
-                    res = "Normalgewicht";
+                    res = "Normal weight";
                 }
                 else if(parse_bmi>=28.0 && parse_bmi<33.0)
                 {
-                    res = "Etwas Übergewicht";
+                    res = "slightly Overweight";
                 }
                 else if(parse_bmi>=33.0 && parse_bmi<43.0)
                 {
-                    res = "Übergewicht";
+                    res = "Overweight";
                 }
                 else if(parse_bmi >= 43.0)
                 {
-                    res = "Adipositas";
+                    res = "Obesity";
                 }
 
             }
@@ -239,23 +239,23 @@ public class Calculator {
 
                 if(parse_bmi < 24.0)
                 {
-                    res = "Untergewicht";
+                    res = "Underweight";
                 }
                 else if(parse_bmi>=24.0 && parse_bmi<29.0)
                 {
-                    res = "Normalgewicht";
+                    res = "Normal weight";
                 }
                 else if(parse_bmi>=29.0 && parse_bmi<34.0)
                 {
-                    res = "Etwas Übergewicht";
+                    res = "slightly Overweight";
                 }
                 else if(parse_bmi>=34.0 && parse_bmi<44.0)
                 {
-                    res = "Übergewicht";
+                    res = "Overweight";
                 }
                 else if(parse_bmi >= 44.0)
                 {
-                    res = "Adipositas";
+                    res = "Obesity";
                 }
 
             }
@@ -271,23 +271,23 @@ public class Calculator {
 
                 if(parse_bmi < 20.0)
                 {
-                    res = "Untergewicht";
+                    res = "Underweight";
                 }
                 else if(parse_bmi>=20.0 && parse_bmi<25.0)
                 {
-                    res = "Normalgewicht";
+                    res = "Normal weight";
                 }
                 else if(parse_bmi>=25.0 && parse_bmi<30.0)
                 {
-                    res = "Etwas Übergewicht";
+                    res = "slightly Overweight";
                 }
                 else if(parse_bmi>=30.0 && parse_bmi<40.0)
                 {
-                    res = "Übergewicht";
+                    res = "Overweight";
                 }
                 else if(parse_bmi >= 40.0)
                 {
-                    res = "Adipositas";
+                    res = "Obesity";
                 }
 
             }
@@ -298,23 +298,23 @@ public class Calculator {
 
                 if(parse_bmi < 21.0)
                 {
-                    res = "Untergewicht";
+                    res = "Underweight";
                 }
                 else if(parse_bmi>=21.0 && parse_bmi<26.0)
                 {
-                    res = "Normalgewicht";
+                    res = "Normal weight";
                 }
                 else if(parse_bmi>=26.0 && parse_bmi<31.0)
                 {
-                    res = "Etwas Übergewicht";
+                    res = "slightly Overweight";
                 }
                 else if(parse_bmi>=31.0 && parse_bmi<41.0)
                 {
-                    res = "Übergewicht";
+                    res = "Overweight";
                 }
                 else if(parse_bmi >= 41.0)
                 {
-                    res = "Adipositas";
+                    res = "Obesity";
                 }
 
             }
@@ -325,23 +325,23 @@ public class Calculator {
 
                 if(parse_bmi < 22.0)
                 {
-                    res = "Untergewicht";
+                    res = "Underweight";
                 }
                 else if(parse_bmi>=22.0 && parse_bmi<27.0)
                 {
-                    res = "Normalgewicht";
+                    res = "Normal weight";
                 }
                 else if(parse_bmi>=27.0 && parse_bmi<32.0)
                 {
-                    res = "Etwas Übergewicht";
+                    res = "slightly Overweight";
                 }
                 else if(parse_bmi>=32.0 && parse_bmi<42.0)
                 {
-                    res = "Übergewicht";
+                    res = "Overweight";
                 }
                 else if(parse_bmi >= 42.0)
                 {
-                    res = "Adipositas";
+                    res = "Obesity";
                 }
 
             }
@@ -352,23 +352,23 @@ public class Calculator {
 
                 if(parse_bmi < 23.0)
                 {
-                    res = "Untergewicht";
+                    res = "Underweight";
                 }
                 else if(parse_bmi>=23.0 && parse_bmi<28.0)
                 {
-                    res = "Normalgewicht";
+                    res = "Normal weight";
                 }
                 else if(parse_bmi>=28.0 && parse_bmi<33.0)
                 {
-                    res = "Etwas Übergewicht";
+                    res = "slightly Overweight";
                 }
                 else if(parse_bmi>=33.0 && parse_bmi<43.0)
                 {
-                    res = "Übergewicht";
+                    res = "Overweight";
                 }
                 else if(parse_bmi >= 43.0)
                 {
-                    res = "Adipositas";
+                    res = "Obesity";
                 }
 
             }
@@ -379,23 +379,23 @@ public class Calculator {
 
                 if(parse_bmi < 24.0)
                 {
-                    res = "Untergewicht";
+                    res = "Underweight";
                 }
                 else if(parse_bmi>=24.0 && parse_bmi<29.0)
                 {
-                    res = "Normalgewicht";
+                    res = "Normal weight";
                 }
                 else if(parse_bmi>=29.0 && parse_bmi<34.0)
                 {
-                    res = "Etwas Übergewicht";
+                    res = "slightly Overweight";
                 }
                 else if(parse_bmi>=34.0 && parse_bmi<44.0)
                 {
-                    res = "Übergewicht";
+                    res = "Overweight";
                 }
                 else if(parse_bmi >= 44.0)
                 {
-                    res = "Adipositas";
+                    res = "Obesity";
                 }
 
             }
@@ -406,23 +406,23 @@ public class Calculator {
 
                 if(parse_bmi < 25.0)
                 {
-                    res = "Untergewicht";
+                    res = "Underweight";
                 }
                 else if(parse_bmi>=25.0 && parse_bmi<30.0)
                 {
-                    res = "Normalgewicht";
+                    res = "Normal weight";
                 }
                 else if(parse_bmi>=30.0 && parse_bmi<35.0)
                 {
-                    res = "Etwas Übergewicht";
+                    res = "slightly Overweight";
                 }
                 else if(parse_bmi>=35.0 && parse_bmi<45.0)
                 {
-                    res = "Übergewicht";
+                    res = "Overweight";
                 }
                 else if(parse_bmi >= 45.0)
                 {
-                    res = "Adipositas";
+                    res = "Obesity";
                 }
 
             }
