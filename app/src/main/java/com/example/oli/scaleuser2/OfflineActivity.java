@@ -151,7 +151,7 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
                         Toast.makeText(OfflineActivity.this, "Data Weight not Updated", Toast.LENGTH_LONG).show();
                     }
                 }
-                animBtData();
+                viewUser();
             }
         }
     }
@@ -194,16 +194,16 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
                 //AUSGABE
 
                 txtNachname.setText(surname);
-                txtNachname.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
+                //txtNachname.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
 
                 txtAge.setText(String.valueOf(age) + " years");
-                txtAge.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
+               //txtAge.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
 
                 txtGeschlecht.setText(gender);
-                txtGeschlecht.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
+                //txtGeschlecht.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
 
                 txtGroesse.setText(height + " cm");
-                txtGroesse.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
+                //txtGroesse.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
 
                 txtGewicht.setText(weight);
                 txtGewicht.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
@@ -219,12 +219,6 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
         }
     }
 
-    private void animBtData()
-    {
-        txtGewicht.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
-        txtBMR.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
-        txtBMI.startAnimation(AnimationUtils.loadAnimation(OfflineActivity.this, android.R.anim.slide_in_left));
-    }
 
     public void AddUser(){
 
