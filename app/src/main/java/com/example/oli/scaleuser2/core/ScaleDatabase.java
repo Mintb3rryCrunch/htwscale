@@ -1,4 +1,4 @@
-package com.example.oli.scaleuser2;
+package com.example.oli.scaleuser2.core;
 
 import android.content.ContentValues;
 import android.content.Context;

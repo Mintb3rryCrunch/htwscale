@@ -1,5 +1,5 @@
 
-package com.example.oli.scaleuser2;
+package com.example.oli.scaleuser2.core;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;

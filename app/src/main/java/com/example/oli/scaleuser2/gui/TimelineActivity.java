@@ -1,4 +1,4 @@
-package com.example.oli.scaleuser2;
+package com.example.oli.scaleuser2.gui;
 
 import android.app.ProgressDialog;
 import android.graphics.Color;
@@ -7,6 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.oli.scaleuser2.R;
+import com.example.oli.scaleuser2.core.Calculator;
+import com.example.oli.scaleuser2.core.OnlineHelper;
+import com.example.oli.scaleuser2.core.UserList;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
@@ -19,8 +23,6 @@ import com.jjoe64.graphview.series.Series;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ResourceBundle;
 
 
 /**

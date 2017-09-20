@@ -1,10 +1,13 @@
-package com.example.oli.scaleuser2;
+package com.example.oli.scaleuser2.core;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.Toast;
+
+import com.example.oli.scaleuser2.gui.LoginGui;
+import com.example.oli.scaleuser2.gui.OnlineActivity;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -28,7 +31,7 @@ public class LoginHelper extends AsyncTask<String, Void, String> {
     AlertDialog alertDialog;
 
 
-    LoginHelper(Context ctx) {
+    public LoginHelper(Context ctx) {
         context = ctx;
     }
     @Override
@@ -38,8 +41,8 @@ public class LoginHelper extends AsyncTask<String, Void, String> {
         //String register_url =   "http://10.9.40.159:80/webapp/register.php";
         String login_url = "http://10.9.42.55:80/webapp/login.php";
         String register_url = "http://10.9.42.55:80/webapp/register.php";
-        //String login_url = "http://192.168.0.12:80/webapp/login.php";
-        //String register_url = "http://192.168.0.12:80/webapp/register.php";
+        //String login_url = "http://192.168.0.16:80/webapp/login.php";
+        //String register_url = "http://192.168.0.16:80/webapp/register.php";
 
         if(type.equals("login")) {
             try {

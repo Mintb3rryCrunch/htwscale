@@ -1,4 +1,4 @@
-package com.example.oli.scaleuser2;
+package com.example.oli.scaleuser2.gui;
 
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
@@ -21,6 +21,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.oli.scaleuser2.R;
+import com.example.oli.scaleuser2.core.BluetoothCommunication;
+import com.example.oli.scaleuser2.core.BluetoothMiScale;
+import com.example.oli.scaleuser2.core.Calculator;
+import com.example.oli.scaleuser2.core.OnlineHelper;
+import com.example.oli.scaleuser2.core.UserBtHelp;
 
 import org.json.JSONArray;
 import org.json.JSONException;

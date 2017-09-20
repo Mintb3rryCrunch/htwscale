@@ -1,9 +1,9 @@
 
-package com.example.oli.scaleuser2;
+package com.example.oli.scaleuser2.core;
 import android.bluetooth.BluetoothAdapter;
 import android.os.Handler;
 
-abstract class BluetoothCommunication {
+public abstract class BluetoothCommunication {
     public static final int BT_MI_SCALE = 0;
     public static final int BT_OPEN_SCALE = 1;
 

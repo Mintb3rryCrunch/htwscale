@@ -1,4 +1,4 @@
-package com.example.oli.scaleuser2;
+package com.example.oli.scaleuser2.gui;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -27,6 +27,9 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.oli.scaleuser2.R;
+import com.example.oli.scaleuser2.core.LoginHelper;
 
 import java.util.Calendar;
 

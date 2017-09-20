@@ -1,10 +1,13 @@
-package com.example.oli.scaleuser2;
+package com.example.oli.scaleuser2.gui;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.example.oli.scaleuser2.R;
+import com.example.oli.scaleuser2.core.OnlineHelper;
+import com.example.oli.scaleuser2.core.UserList;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;

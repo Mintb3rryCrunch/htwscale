@@ -1,8 +1,14 @@
-package com.example.oli.scaleuser2;
+package com.example.oli.scaleuser2.core;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
+
+import com.example.oli.scaleuser2.gui.CommunityActivity;
+import com.example.oli.scaleuser2.gui.LoginGui;
+import com.example.oli.scaleuser2.gui.OnlineActivity;
+import com.example.oli.scaleuser2.R;
+import com.example.oli.scaleuser2.gui.TimelineActivity;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -21,12 +27,12 @@ import java.net.URLEncoder;
  * Created by Oli on 04.07.2017.
  */
 
-class OnlineHelper extends AsyncTask<String, Void, String>
+public class OnlineHelper extends AsyncTask<String, Void, String>
 {
     String json_url, update_url, timeline_url, community_url;
     Context context;
 
-    OnlineHelper(Context ctx) {
+    public OnlineHelper(Context ctx) {
         context = ctx;
     }
     protected void onPreExecute()
@@ -39,10 +45,10 @@ class OnlineHelper extends AsyncTask<String, Void, String>
         update_url =     "http://10.9.42.55:80/webapp/update_data.php";
         timeline_url =   "http://10.9.42.55:80/webapp/get_timeline.php";
         community_url =  "http://10.9.42.55:80/webapp/get_community.php";
-        //json_url =      "http://192.168.0.12:80/webapp/get_data.php";
-        //update_url =    "http://192.168.0.12:80/webapp/update_data.php";
-        //timeline_url =    "http://192.168.0.12:80/webapp/get_timeline.php";
-        //community_url =    "http://192.168.0.12:80/webapp/get_community.php";
+        //json_url =      "http://192.168.0.16:80/webapp/get_data.php";
+        //update_url =    "http://192.168.0.16:80/webapp/update_data.php";
+        //timeline_url =    "http://192.168.0.16:80/webapp/get_timeline.php";
+        //community_url =    "http://192.168.0.16:80/webapp/get_community.php";
     }
 
     protected String doInBackground(String... params) {

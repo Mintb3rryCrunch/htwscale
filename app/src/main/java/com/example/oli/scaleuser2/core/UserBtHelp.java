@@ -1,10 +1,10 @@
-package com.example.oli.scaleuser2;
+package com.example.oli.scaleuser2.core;
 
 import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
 
-import static com.example.oli.scaleuser2.BluetoothCommunication.BT_MI_SCALE;
+import static com.example.oli.scaleuser2.core.BluetoothCommunication.BT_MI_SCALE;
 
 /**
  * Created by Oli on 24.05.2017.

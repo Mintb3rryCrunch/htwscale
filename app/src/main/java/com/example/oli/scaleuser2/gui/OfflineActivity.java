@@ -1,4 +1,4 @@
-package com.example.oli.scaleuser2;
+package com.example.oli.scaleuser2.gui;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -31,6 +31,14 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.oli.scaleuser2.R;
+import com.example.oli.scaleuser2.core.BluetoothCommunication;
+import com.example.oli.scaleuser2.core.BluetoothMiScale;
+import com.example.oli.scaleuser2.core.Calculator;
+import com.example.oli.scaleuser2.core.LoginHelper;
+import com.example.oli.scaleuser2.core.UserBtHelp;
+import com.example.oli.scaleuser2.core.UserDatabase;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -190,6 +198,11 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
                 String bmi = Calculator.BMI_Calculator(weight, height);
                 String bmr = Calculator.BMR_Calculator(weight, height, age, gender);
 
+                if(Float.parseFloat(weight) != 0.0)
+                {
+                    String bmiTable = Calculator.bmiTable(gender, bmi, age);
+                    Toast.makeText(OfflineActivity.this, "Bmi Categorie: " +bmiTable, Toast.LENGTH_SHORT).show();
+                }
 
                 //AUSGABE
 

@@ -18,18 +18,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginGui">
+        <activity android:name=".gui.LoginGui">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UserView"></activity>
-        <activity android:name=".OnlineActivity"></activity>
-        <activity android:name=".OfflineActivity"></activity>
-        <activity android:name=".TimelineActivity"></activity>
-        <activity android:name=".CommunityActivity"></activity>
+        <activity android:name=".gui.OnlineActivity"></activity>
+        <activity android:name=".gui.OfflineActivity"></activity>
+        <activity android:name=".gui.TimelineActivity"></activity>
+        <activity android:name=".gui.CommunityActivity"></activity>
     </application>
 
 </manifest>
