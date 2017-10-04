@@ -48,7 +48,11 @@ import static com.example.oli.scaleuser2.R.id.et_nachname;
 import static com.example.oli.scaleuser2.R.id.et_vorname;
 
 /**
- * Created by Oli on 12.07.2017.
+ * Zum Anzeigen, Aktualisieren und Löschen der Gewichtsdaten eines Benutzers im Offline modus.
+ *
+ * @author Oliver Dziedzic, Mamoudou Balde
+ *
+ * @version 1.0
  */
 
 public class OfflineActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener
@@ -68,6 +72,13 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
     ArrayAdapter<String> adapter;
 
 
+    /**
+     * Wird aufgerufen, wenn die Activity das erste mal erstellt wird.
+     * Views werden initialisiert und Diensten werden gestartet.
+     *
+     * @param savedInstanceState über diesem Parameter können Werte aus der Activity
+     *                           zwischen gespeichert werden.
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline);
@@ -95,6 +106,11 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
 
     }
 
+    /**
+     * Prüft beim Starten der Activity, ob einen Benutzer schon in der Datenbank eingefügt wurde.
+     * Wenn es nicht der Fall ist, wird eine Nachricht angezeigt
+     * um einen neuen Benutzer zu erstellen und einzufügen.
+     */
     public void check_user(){
 
         Cursor cursor = myDb.getAllUser2();
@@ -118,6 +134,9 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
         }
     }
 
+    /**
+     * Einfügen und Anzeigen der Gewichtsdaten(Gewicht, Bmi, Bmr) eines Benutzers.
+     */
     private void add_weight() {
 
         String weight = Float.toString(BluetoothMiScale.weightdata);
@@ -126,6 +145,9 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
         //Toast.makeText(MainActivity.this, "Weightdata: " +weight, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Einfügen und Aktualisieren der Gewichtsdaten(Gewicht, Bmi, Bmr) eines Benutzers.
+     */
     private void updateWeight()
     {
         String weightData = txtGewicht.getText().toString();
@@ -164,6 +186,9 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
         }
     }
 
+    /**
+     * Aktualisieren der Spinner View bei jedem neuen Benutzer
+     */
     public void updateSpinner() {
         names.clear();
 
@@ -175,6 +200,9 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
         spinner.setAdapter(adapter);
     }
 
+    /**
+     * Anzeigen alle Gewichtsdaten eines Benutzers.
+     */
     private void viewUser()
     {
         Cursor cursor = myDb.getAllUser2();
@@ -233,6 +261,9 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
     }
 
 
+    /**
+     * Einfügen einen neuen Benutzer.
+     */
     public void AddUser(){
 
         LayoutInflater inflater = getLayoutInflater();
@@ -354,6 +385,9 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
         dialog.show();
     }
 
+    /**
+     * Aktualisieren der Daten eines Benutzers.
+     */
     public void UpdateUser()
     {
         LayoutInflater inflater = getLayoutInflater();
@@ -481,6 +515,9 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
         dialog.show();
     }
 
+    /**
+     * Löschen einen Benutzer.
+     */
     public void DeleteUser()
     {
         Cursor cursor = myDb.getAllUser2();
@@ -504,6 +541,14 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
         }
     }
 
+    /**
+     * Einfügen und Anzeigen einen Menüeintrag in der Action Bar.
+     *
+     * @param menu der gegebene Menüeintrag
+     *
+     * @return true, wenn der Menüeintrag in der Action Bar eingefügt ist, sonst false
+     *
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_offline, menu);
@@ -527,6 +572,10 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
         return true;
     }
 
+    /**
+     * Wird aufgerufen um nach der Bluetoothgerät zu suchen.
+     * Wenn dieses gefunden ist, wird die Verbindung hergestellt.
+     */
     private void invokeSearchBluetoothDevice() {
         final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         BluetoothAdapter btAdapter = bluetoothManager.getAdapter();
@@ -558,10 +607,18 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
         setBluetoothStatusIcon(R.mipmap.bluetooth_searching);
 
         UserBtHelp.getInstance(getApplicationContext()).stopSearchingForBluetooth();
-        //checkBtPermissions();
         UserBtHelp.getInstance(getApplicationContext()).startSearchingForBluetooth(Integer.parseInt(deviceType), deviceName, callbackBtHandler);
     }
 
+    /**
+     * Überprüft, ob der Menüeintrag angeklickt wurde
+     * und führt die gewünschte Aktion aus.
+     *
+     * @param item der gegebene Menüeintrag
+     *
+     * @return true, wenn der Menüeintrag angeklickt wurde, sonst false
+     *
+     */
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
@@ -603,11 +660,20 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Anzeige der Bluetoothiconstatus.
+     *
+     * @param iconRessource das gegebene Bluetoothicon
+     *
+     */
     private void setBluetoothStatusIcon(int iconRessource) {
         bluetoothStatusIcon = iconRessource;
         bluetoothStatus.setIcon(getResources().getDrawable(bluetoothStatusIcon));
     }
 
+    /**
+     * Anzeige der Meldung über den aktuellen Bluetoothstatus.
+     */
     private final Handler callbackBtHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -616,11 +682,6 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
                 case BluetoothCommunication.BT_RETRIEVE_SCALE_DATA:
                     setBluetoothStatusIcon(R.mipmap.bluetooth_connected);
                     add_weight();
-                    //ScaleData scaleBtData = (ScaleData) msg.obj;
-
-                  /*  if (UserBtHelp.getInstance(getApplicationContext()).addScaleData(scaleBtData) == -1) {
-                        Toast.makeText(getApplicationContext(), "No User Exists, please create a User", Toast.LENGTH_SHORT).show();
-                    }*/
                     break;
                 case BluetoothCommunication.BT_INIT_PROCESS:
                     setBluetoothStatusIcon(R.mipmap.bluetooth_connected);
@@ -650,20 +711,6 @@ public class OfflineActivity extends AppCompatActivity implements AdapterView.On
             }
         }
     };
-    /*
-    public void checkBtPermissions()
-    {
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP)
-        {
-            int permissionCheck = this.checkCallingOrSelfPermission("Manifest.permission.ACCESS_FINE_LOCATION");
-            permissionCheck += this.checkSelfPermission("Manifest.permission.ACCESS_COARSE_LOCATION");
-            if(permissionCheck != 0)
-                this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1001);
-        }
-    }
-    */
-
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         viewUser();

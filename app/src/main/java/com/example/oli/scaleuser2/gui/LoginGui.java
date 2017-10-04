@@ -34,7 +34,12 @@ import com.example.oli.scaleuser2.core.LoginHelper;
 import java.util.Calendar;
 
 /**
- * Created by Oli on 21.06.2017.
+ * Zum Registrieren und Einloggen eines Benutzers im Online und auch Offline modus
+ * auf der Benutzeroberfläche
+ *
+ * @author Oliver Dziedzic, Mamoudou Balde
+ *
+ * @version 1.0
  */
 
 
@@ -55,6 +60,14 @@ public class LoginGui extends AppCompatActivity implements TextWatcher,
     int progressValue;
     AlertDialog alertDialog;
 
+    /**
+     * wird aufgerufen, wenn die Activity das erste mal erstellt wird.
+     * Views werden initialisiert und Diensten werden gestartet.
+     *
+     * @param savedInstanceState Über diesem Parameter können Werte aus der Activity
+     *                           zwischen gespeichert werden.
+     *
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
@@ -103,6 +116,10 @@ public class LoginGui extends AppCompatActivity implements TextWatcher,
         managePrefs();
     }
 
+    /**
+     * Um sich die eingegebene Username und Password eines Benutzers zu merken,
+     * damit er diese nicht beim Einloggen erneut eingeben muss.
+     */
     private void managePrefs(){
         if(rem_userpass.isChecked()){
             editor.putString(KEY_USERNAME, user_name.getText().toString().trim());
@@ -117,6 +134,14 @@ public class LoginGui extends AppCompatActivity implements TextWatcher,
         }
     }
 
+    /**
+     * Wird ausgeführt, wenn der Login Button geklickt wird.
+     * Bei Klick wird die LoginHelper Klasse aufgerufen und ausgeführt.
+     * Hier kann der Benutzer sich einloggen.
+     *
+     * @param v graphisches Element, mit dem der Benutzer interagieren kann
+     *
+     */
     public void onLogin(View v){
         login_username = user_name.getText().toString();
         String password = passwd.getText().toString();
@@ -132,6 +157,13 @@ public class LoginGui extends AppCompatActivity implements TextWatcher,
 
     }
 
+    /**
+     * Wird ausgeführt, wenn der Offline Button geklickt wird.
+     * Bei Klick wird der Benutzer auf der Offline Modus Benutzeroberfläche wechseln.
+     *
+     * @param v graphisches Element, mit dem der Benutzer interagieren kann
+     *
+     */
     public void onOffline(View v){
         final Intent intent = new Intent(LoginGui.this, OfflineActivity.class);
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
@@ -156,6 +188,14 @@ public class LoginGui extends AppCompatActivity implements TextWatcher,
 
     }
 
+    /**
+     * Wird ausgeführt, wenn der Register Button geklickt wird.
+     * Bei Klick wird das Register Fenster und die LoginHelper Klasse aufgerufen und ausgeführt.
+     * Hier kann einen neuen Benutzer sich registrieren.
+     *
+     * @param v graphisches Element, mit dem der Benutzer interagieren kann
+     *
+     */
     public void onRegister(View v){
 
 
@@ -305,6 +345,14 @@ public class LoginGui extends AppCompatActivity implements TextWatcher,
         dialog.show();
     }
 
+    /**
+     * Ist für alle Geräte erforderlich, die API23+ laufen lassen.
+     * Android muss programmgesteuert die Berechtigungen für Bluetooth überprüfen.
+     * Das Setzen der richtigen Berechtigungen in das Manifest ist nicht genug.
+     *
+     * @note Dies wird nur bei Versionen grösser als LOLLIPOP ausgeführt.
+     *
+     */
     public void checkBtPermissions()
     {
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP)

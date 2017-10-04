@@ -22,7 +22,14 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 /**
- * Created by Oli on 21.06.2017.
+ * Hilfsklasse für die Login Gui.
+ * Sie ermöglicht zeitaufwendige Hintergrundaufgaben in einem Arbeitsthread auszuführen
+ * um die empfangene Benutzerdaten vom Server auf die Benutzeroberfläche anzuzeigen bzw.
+ * zu aktualisieren.
+ *
+ * @author Oliver Dziedzic, Mamoudou Balde
+ *
+ * @version 1.0
  */
 
 public class LoginHelper extends AsyncTask<String, Void, String> {
@@ -31,9 +38,24 @@ public class LoginHelper extends AsyncTask<String, Void, String> {
     AlertDialog alertDialog;
 
 
+    /**
+     * Konstruktor
+     *
+     * @param ctx der Kontext der Klasse
+     */
     public LoginHelper(Context ctx) {
         context = ctx;
     }
+
+    /**
+     * wird verwendet, um Hintergrundoperationen wie das Erhalten von Daten
+     * vom Server usw. durchzuführen.
+     * Hier wird ein Json Array von der URL empfangen.
+     *
+     * @param params die übergebene Parameter
+     *
+     * @return die empfangene Benutzerdaten
+     */
     @Override
     protected String doInBackground(String... params) {
         String type = params[0];
@@ -139,6 +161,14 @@ public class LoginHelper extends AsyncTask<String, Void, String> {
 
     }
 
+    /**
+     * wird verwendet, um die Benutzeroberfläche zu aktualisieren,
+     * nachdem der Hintergrundprozess abgeschlossen ist.
+     * Hier werden die umgewandelte Json Daten nach dem Empfang in Textview angezeigt.
+     *
+     * @param result das Ergebnis nach Abschluss der Hintergrundberechnung
+     *
+     */
     @Override
     protected void onPostExecute(String result) {
         //super.onPostExecute(aVoid);

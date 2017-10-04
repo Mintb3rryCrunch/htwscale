@@ -24,7 +24,14 @@ import java.net.URLEncoder;
 
 
 /**
- * Created by Oli on 04.07.2017.
+ * Hilfsklasse für die Online Gui.
+ * Sie ermöglicht zeitaufwendige Hintergrundaufgaben in einem Arbeitsthread auszuführen
+ * um die empfangene Benutzerdaten vom Server auf die Benutzeroberfläche anzuzeigen bzw.
+ * zu aktualisieren.
+ *
+ * @author Oliver Dziedzic, Mamoudou Balde
+ *
+ * @version 1.0
  */
 
 public class OnlineHelper extends AsyncTask<String, Void, String>
@@ -32,9 +39,20 @@ public class OnlineHelper extends AsyncTask<String, Void, String>
     String json_url, update_url, timeline_url, community_url;
     Context context;
 
+    /**
+     * Konstruktor
+     *
+     * @param ctx der Kontext der Klasse
+     */
     public OnlineHelper(Context ctx) {
         context = ctx;
     }
+
+    /**
+     * wird verwendet, um die Aufgabe einzurichten, indem sie z.B.
+     * eine Progressleiste in die Benutzeroberfläche anzeigt.
+     * Hier werden die verschiedene Url und definierten Textview initialisiert.
+     */
     protected void onPreExecute()
     {
         //json_url =      "http://10.9.40.159:80/webapp/getData.php";
@@ -51,6 +69,15 @@ public class OnlineHelper extends AsyncTask<String, Void, String>
         //community_url =    "http://192.168.0.16:80/webapp/get_community.php";
     }
 
+    /**
+     * wird verwendet, um Hintergrundoperationen wie das Erhalten von Daten
+     * vom Server usw. durchzuführen.
+     * Hier wird ein Json Array von der URL empfangen.
+     *
+     * @param params die übergebene Parameter
+     *
+     * @return die empfangene Benutzerdaten
+     */
     protected String doInBackground(String... params) {
         String type = params[0];
         {
@@ -215,6 +242,13 @@ public class OnlineHelper extends AsyncTask<String, Void, String>
         super.onProgressUpdate(values);
     }
 
+    /**
+     * Verwendet, um die Benutzeroberfläche zu aktualisieren,
+     * nachdem der Hintergrundprozess abgeschlossen ist.
+     * Hier werden die umgewandelte Json Daten nach dem Empfang in Textview angezeigt.
+     *
+     * @param result das Ergebnis nach Abschluss der Hintergrundberechnung
+     */
     protected void onPostExecute(String result) {
         if (result.contains("result"))
         {

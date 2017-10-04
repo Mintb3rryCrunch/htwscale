@@ -8,7 +8,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
 
 /**
- * Created by Oli on 20.04.2017.
+ * Hilfsklasse zum Erstellen, Aktualisieren und Öffnen der Datenbank.
+ *
+ * @author Oliver Dziedzic, Mamoudou Balde
+ *
+ * @version 1.0
  */
 
 public class UserDatabase extends SQLiteOpenHelper {
@@ -26,10 +30,23 @@ public class UserDatabase extends SQLiteOpenHelper {
     public static final String COL_7=   "WEIGHT";
 
 
+    /**
+     * Konstruktor
+     *
+     * @param context der mitgegebene Kontext
+     *
+     */
     public UserDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    /**
+     * Wird aufgerufen, wenn die Datenbank das erste Mal erstellt wird.
+     * Hier werden SQL Statements ausgeführt, um die Tabellen zu erstellen.
+     *
+     * @param db die Datenbank
+     *
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + TABLE_NAME +
@@ -37,22 +54,34 @@ public class UserDatabase extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * Wird aufgerufen, wenn eine Datenbankversion gefunden wurde,
+     * die älter ist, als die aktuelle. Hier werden alte Datenbanktabellen angepasst.
+     *
+     * @param db die Datenbank
+     * @param oldVersion alte Datenbankversion
+     * @param newVersion neue Datenbanversion
+     *
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
-/*
-    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion)
-    {
-        if(oldVersion == 3 && newVersion == 4)
-        {
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-            onCreate(db);
-        }
-    }
-*/
+
+    /**
+     * Einfügen von Benutzerdaten in der Datenbank.
+     *
+     * @param name     Vorname des Benutzers
+     * @param surname  Nachname des Benutzers
+     * @param birthday Geburtsdatum des Benutzers
+     * @param gender   Geschlecht des Benutzers
+     * @param height   Grösse des Benutzers
+     * @param weight   Gewicht des Benutzers
+     *
+     * @return true, wenn die Benutzerdaten in der Datenbank eingefügt sind, sonst false
+     */
     public boolean insertData (String name, String surname, String birthday, String gender, String height, String weight)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -93,6 +122,11 @@ public class UserDatabase extends SQLiteOpenHelper {
 
     //select NAME from user_table where NAME = "Lisa"
 
+    /**
+     * Abfragen von Benutzerdaten aus der Datenbank.
+     *
+     * @return Ergebnis der Datenbankabfrage
+     */
     public Cursor getAllUser()
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -102,6 +136,18 @@ public class UserDatabase extends SQLiteOpenHelper {
         return cursor;
     }
 
+    /**
+     * Aktualisieren von Benutzerdatensätzen in der Datenbank.
+     *
+     * @param id       Id des Benutzers
+     * @param name     Vorname des Benutzers
+     * @param surname  Nachname des Benutzers
+     * @param birthday Geburtsdatum des Benutzers
+     * @param gender   Geschlecht des Benutzers
+     * @param height   Grösse des Benutzers
+     *
+     * @return true, wenn die Datensätze in der Datenbank aktualisiert sind, sonst false
+     */
     public boolean updateData(String id, String name, String surname, String birthday, String gender, String height)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -128,6 +174,14 @@ public class UserDatabase extends SQLiteOpenHelper {
         return true;
     }
 
+    /**
+     * Aktualisieren von Gewichtdatensatz des Benutzers in der Datenbank.
+     *
+     * @param id      Id des Benutzers
+     * @param weight  Gewicht des Benutzers
+     *
+     * @return true, wenn der Datensatz in der Datenbank aktualisiert ist, sonst false
+     */
     public boolean updateData_weight(String id, String weight)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -142,6 +196,11 @@ public class UserDatabase extends SQLiteOpenHelper {
         return true;
     }
 
+    /**
+     * Abfragen von Benutzerdaten aus der Datenbank.
+     *
+     * @return Ergebnis der Datenbankabfrage
+     */
     public Cursor getAllUser2()
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -150,6 +209,13 @@ public class UserDatabase extends SQLiteOpenHelper {
         return cursor;
     }
 
+    /**
+     * Löschen von Benutzerdatensätzen in der Datenbank.
+     *
+     * @param id Id des Benutzers
+     *
+     * @return die gelöschte Id
+     */
     public Integer deleteData(String id)
     {
         SQLiteDatabase db = this.getWritableDatabase();

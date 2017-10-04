@@ -20,6 +20,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ * Verwaltet die Bluetoothkommunikation mit der Mi Scale Waage
+ *
+ * @author Oliver Dziedzic, Mamoudou Balde
+ *
+ * @version 1.0
+ */
 public class BluetoothMiScale extends BluetoothCommunication {
 
     private BluetoothGatt bluetoothGatt;
@@ -43,12 +50,29 @@ public class BluetoothMiScale extends BluetoothCommunication {
     public static float weightdata;
 
 
+    /**
+     * Konstruktor
+     * @param con der Kontext der Klasse
+     */
     public BluetoothMiScale(Context con) {
         searchHandler = new Handler();
         context = con;
         scanCallback = null;
     }
 
+    /**
+     * Sucht nach einem Bluetoothsgerät.
+     *
+     * @note die MAC Adresse des Bluetoothsgerätes wird geprüft. Diese Adresse muss
+     * mit einem der gegebenen MAC Adressen anfangen.
+     *
+     * Bei erfolgreicher Verbindung wird der Bluetoothmodus automatisch ausgelöst.
+     * Wenn keinen Bluetoothgerät gefunden wurde, wird die Suche automatisch abgebrochen.
+     *
+     * @param deviceName Name des suchenden Bluetoothsgerätes vergleichbar
+     *                   mit den gefundenen Bluetoothgeräten
+     *
+     */
     @Override
     public void startSearching(String deviceName) {
         btDeviceName = deviceName;
@@ -89,6 +113,9 @@ public class BluetoothMiScale extends BluetoothCommunication {
         btAdapter.startLeScan(scanCallback);
     }
 
+    /**
+     * Suche nach einem Bluetoothsgerät abbrechen.
+     */
     @Override
     public void stopSearching() {
         if (bluetoothGatt != null)
@@ -102,6 +129,12 @@ public class BluetoothMiScale extends BluetoothCommunication {
     }
 
 
+    /**
+     * Wandelt die empfangene Gewichtsdaten von der Mi Scale Waage im Float Format um.
+     *
+     * @param weightBytes die empfangene Gewichtsdaten in byte
+     *
+     */
     private void parseBytes(byte[] weightBytes) {
         try {
             float weight = 0.0f;
@@ -113,16 +146,7 @@ public class BluetoothMiScale extends BluetoothCommunication {
             final boolean isLBSUnit = isBitSet(ctrlByte, 0);
             final boolean isCattyUnit = isBitSet(ctrlByte, 4);
 
-            /*Log.d("GattCallback", "IsWeightRemoved: " + isBitSet(ctrlByte, 7));
-            Log.d("GattCallback", "6 LSB Unknown: " + isBitSet(ctrlByte, 6));
-            Log.d("GattCallback", "IsStabilized: " + isBitSet(ctrlByte, 5));
-            Log.d("GattCallback", "IsCattyOrKg: " + isBitSet(ctrlByte, 4));
-            Log.d("GattCallback", "3 LSB Unknown: " + isBitSet(ctrlByte, 3));
-            Log.d("GattCallback", "2 LSB Unknown: " + isBitSet(ctrlByte, 2));
-            Log.d("GattCallback", "1 LSB Unknown: " + isBitSet(ctrlByte, 1));
-            Log.d("GattCallback", "IsLBS: " + isBitSet(ctrlByte, 0));*/
 
-            // Only if the value is stabilized and the weight is *not* removed, the date is valid
             if (isStabilized && !isWeightRemoved) {
 
                 final int year = ((weightBytes[4] & 0xFF) << 8) | (weightBytes[3] & 0xFF);
@@ -155,6 +179,16 @@ public class BluetoothMiScale extends BluetoothCommunication {
         }
     }
 
+    /**
+     * Prüft, ob das gespeicherte Datum der empfangenen Gewichtsdaten
+     * im Datumsumfang liegt.
+     *
+     * @param weightDate das gespeicherte Datum
+     * @param range      der Datumsumfang
+     *
+     * @return true, wenn das gespeicherte Datum im Datumsumfang liegt sonst false
+     *
+     */
     private boolean validateDate(Date weightDate, int range) {
 
         Calendar currentDatePos = Calendar.getInstance();
@@ -170,6 +204,15 @@ public class BluetoothMiScale extends BluetoothCommunication {
         return false;
     }
 
+    /**
+     * Prüft, ob in einem Byte ein Bit gesetzt ist (1) oder nicht (0).
+     *
+     * @param value Byte, das geprüft wird
+     * @param bit Bit-Position, die geprüft wird
+     *
+     * @return true, wenn ein Bit gesezt ist (1) sonst false (0)
+     *
+     */
     private boolean isBitSet(byte value, int bit) {
         return (value & (1 << bit)) != 0;
     }
@@ -188,6 +231,9 @@ public class BluetoothMiScale extends BluetoothCommunication {
         Log.d("BluetoothMiScale", "Raw hex data: " + stringBuilder);
     }
 
+    /**
+     * Benutzerdefinierte Gatt Callback Klasse zum Einrichten des Bluetoothszustandes.
+     */
     private BluetoothGattCallback gattCallback= new BluetoothGattCallback() {
         @Override
         public void onConnectionStateChange(final BluetoothGatt gatt, int status, int newState) {

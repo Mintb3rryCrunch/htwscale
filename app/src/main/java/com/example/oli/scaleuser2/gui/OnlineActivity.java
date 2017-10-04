@@ -34,7 +34,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by Oli on 21.06.2017.
+ * Zum Anzeigen und Aktualisieren der Gewichtsdaten eines Benutzers
+ * mit Hilfe der OnlineHelper Klasse im Online modus.
+ *
+ * @author Oliver Dziedzic, Mamoudou Balde
+ *
+ * @version 1.0
  */
 
 public class OnlineActivity extends AppCompatActivity {
@@ -52,6 +57,14 @@ public class OnlineActivity extends AppCompatActivity {
     Animation FabOpen, FabClose, FabRClockwise, FabRanticlockwise;
     boolean isOpen = false;
 
+    /**
+     * Wird aufgerufen, wenn die Activity das erste mal erstellt wird.
+     * Views werden initialisiert und Diensten werden gestartet.
+     *
+     * @param savedInstanceState Über diesem Parameter können Werte aus der Activity
+     *                           zwischen gespeichert werden.
+     *
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_online);
@@ -95,6 +108,10 @@ public class OnlineActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Bei Klick wird der Floating Action Button geöffnet
+     * um die Timeline und Community Buttons auszuführen.
+     */
     public void fabOpenAnimation()
     {
         myFab.startAnimation(FabOpen);
@@ -105,6 +122,10 @@ public class OnlineActivity extends AppCompatActivity {
         isOpen = true;
     }
 
+    /**
+     * Bei Klick wird der Floating Action Button geschlossen.
+     * Die Timeline und Community Buttons sind nicht klickbar.
+     */
     public void fabCloseAnimation()
     {
         myFab.startAnimation(FabClose);
@@ -116,6 +137,13 @@ public class OnlineActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Bei Klick wird die Timeline Activity aufgerufen und gestartet
+     * um die Gewichtsdaten eines Benutzers in einem History Graph zu visualisieren.
+     *
+     * @param v graphisches Element, mit dem der Benutzer interagieren kann
+     *
+     */
     public void onTimeline(View v) {
         final Intent intent = new Intent(OnlineActivity.this, TimelineActivity.class);
         startActivity(intent);
@@ -124,12 +152,22 @@ public class OnlineActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Bei Klick wird die Community Activity aufgerufen und gestartet
+     * um die Gewichtsdaten alle Benutzer in einem Graph zu visualisieren.
+     *
+     * @param v graphisches Element, mit dem der Benutzer interagieren kann
+     *
+     */
     public void onCommunity(View v){
         final Intent intent = new Intent(OnlineActivity.this, CommunityActivity.class);
         startActivity(intent);
         fabCloseAnimation();
     }
 
+    /**
+     * Gibt  die empfangene Daten als Json Format zurueck.
+     */
     private void getJson(){
 
         loading = ProgressDialog.show(OnlineActivity.this, "Please Wait...",null,true,true);
@@ -148,6 +186,12 @@ public class OnlineActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Wandelt die empfangene Json Daten in String format um.
+     *
+     * @param jsonString die gegebene Json Daten
+     *
+     */
     public static void parseJson(String jsonString)
     {
         try
@@ -187,6 +231,10 @@ public class OnlineActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Einfügen, Aktualisieren und Anzeigen der Gewichtsdaten(Gewicht, Bmi, Bmr)
+     * eines Benutzers.
+     */
     private void add_weight() {
 
         gewicht = Float.toString(BluetoothMiScale.weightdata);
@@ -204,6 +252,14 @@ public class OnlineActivity extends AppCompatActivity {
         txtBMR.startAnimation(AnimationUtils.loadAnimation(OnlineActivity.this, android.R.anim.slide_in_left));
     }
 
+    /**
+     * Einfügen und Anzeigen einen Menüeintrag in der Action Bar.
+     *
+     * @param menu der gegebene Menüeintrag
+     *
+     * @return true, wenn der Menüeintrag in der Action Bar eingefügt ist, sonst false
+     *
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_online, menu);
@@ -225,6 +281,10 @@ public class OnlineActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Wird aufgerufen um nach der Bluetoothgerät zu suchen.
+     * Wenn dieses gefunden ist, wird die Verbindung hergestellt.
+     */
     private void invokeSearchBluetoothDevice() {
         final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         BluetoothAdapter btAdapter = bluetoothManager.getAdapter();
@@ -256,10 +316,18 @@ public class OnlineActivity extends AppCompatActivity {
         setBluetoothStatusIcon(R.mipmap.bluetooth_searching);
 
         UserBtHelp.getInstance(getApplicationContext()).stopSearchingForBluetooth();
-        //checkBtPermissions();
         UserBtHelp.getInstance(getApplicationContext()).startSearchingForBluetooth(Integer.parseInt(deviceType), deviceName, callbackBtHandler);
     }
 
+    /**
+     * Überprüft, ob der Menüeintrag angeklickt wurde
+     * und führt die gewünschte Aktion aus.
+     *
+     * @param item der gegebene Menüeintrag
+     *
+     * @return true, wenn der Menüeintrag angeklickt wurde, sonst false
+     *
+     */
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
@@ -283,11 +351,20 @@ public class OnlineActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Anzeige der Bluetoothiconstatus.
+     *
+     * @param iconRessource das gegebene Bluetoothicon
+     *
+     */
     private void setBluetoothStatusIcon(int iconRessource) {
         bluetoothStatusIcon = iconRessource;
         bluetoothStatus.setIcon(getResources().getDrawable(bluetoothStatusIcon));
     }
 
+    /**
+     * Anzeige der Meldung über den aktuellen Bluetoothstatus.
+     */
     private final Handler callbackBtHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -296,52 +373,36 @@ public class OnlineActivity extends AppCompatActivity {
                 case BluetoothCommunication.BT_RETRIEVE_SCALE_DATA:
                     setBluetoothStatusIcon(R.mipmap.bluetooth_connected);
                     add_weight();
-                    //ScaleData scaleBtData = (ScaleData) msg.obj;
-
-                  /*  if (UserBtHelp.getInstance(getApplicationContext()).addScaleData(scaleBtData) == -1) {
-                        Toast.makeText(getApplicationContext(), "No User Exists, please create a User", Toast.LENGTH_SHORT).show();
-                    }*/
                     break;
                 case BluetoothCommunication.BT_INIT_PROCESS:
                     setBluetoothStatusIcon(R.mipmap.bluetooth_connected);
                     Toast.makeText(getApplicationContext(), "Initialize Bluetooth device", Toast.LENGTH_SHORT).show();
-                    Log.d("OpenScale", "Bluetooth initializing");
+                    Log.d("HTWScale", "Bluetooth initializing");
                     break;
                 case BluetoothCommunication.BT_CONNECTION_LOST:
                     setBluetoothStatusIcon(R.mipmap.bluetooth_disabled);
                     Toast.makeText(getApplicationContext(), "Lost Bluetooth Connection", Toast.LENGTH_SHORT).show();
-                    Log.d("OpenScale", "Bluetooth connection lost");
+                    Log.d("HTWScale", "Bluetooth connection lost");
                     break;
                 case BluetoothCommunication.BT_NO_DEVICE_FOUND:
                     setBluetoothStatusIcon(R.mipmap.bluetooth_disabled);
                     Toast.makeText(getApplicationContext(), "No Bluetooth device found", Toast.LENGTH_SHORT).show();
-                    Log.d("OpenScale", "No Bluetooth device found");
+                    Log.d("HTWScale", "No Bluetooth device found");
                     break;
                 case BluetoothCommunication.BT_CONNECTION_ESTABLISHED:
                     setBluetoothStatusIcon(R.mipmap.bluetooth_connected);
                     Toast.makeText(getApplicationContext(),"Connection successful", Toast.LENGTH_SHORT).show();
-                    Log.d("OpenScale", "Bluetooth connection successful established");
+                    Log.d("HTWScale", "Bluetooth connection successful established");
                     break;
                 case BluetoothCommunication.BT_UNEXPECTED_ERROR:
                     setBluetoothStatusIcon(R.mipmap.bluetooth_disabled);
                     Toast.makeText(getApplicationContext(), "Bluetooth has an unexcepted Error" + ": " + msg.obj, Toast.LENGTH_SHORT).show();
-                    Log.e("OpenScale", "Bluetooth unexpected error: " + msg.obj);
+                    Log.e("HTWScale", "Bluetooth unexpected error: " + msg.obj);
                     break;
             }
         }
     };
-    /*
-    public void checkBtPermissions()
-    {
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP)
-        {
-            int permissionCheck = this.checkCallingOrSelfPermission("Manifest.permission.ACCESS_FINE_LOCATION");
-            permissionCheck += this.checkSelfPermission("Manifest.permission.ACCESS_COARSE_LOCATION");
-            if(permissionCheck != 0)
-                this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1001);
-        }
-    }
-    */
+
 
 
 }

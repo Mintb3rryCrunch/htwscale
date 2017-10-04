@@ -26,7 +26,11 @@ import org.json.JSONObject;
 
 
 /**
- * Created by Oli on 22.07.2017.
+ * Zur Visualisierung der Gewichtsdaten eines Benutzers in einem History Graph.
+ *
+ * @author Oliver Dziedzic, Mamoudou Balde
+ *
+ * @version 1.0
  */
 
 public class TimelineActivity extends AppCompatActivity {
@@ -40,6 +44,14 @@ public class TimelineActivity extends AppCompatActivity {
     public static String ideal;
     public static GraphView graph;
 
+    /**
+     * wird aufgerufen, wenn die Activity das erste mal erstellt wird.
+     * Views werden initialisiert und Diensten werden gestartet.
+     *
+     * @param savedInstanceState Über diesem Parameter können Werte aus der Activity
+     *                           zwischen gespeichert werden.
+     *
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
@@ -67,7 +79,12 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * Sie definiert die Daten für die Visualisierung des Graphen.
+     *
+     * @return die zu visualisierende Daten
+     *
+     */
     private static DataPoint[] getDataPoint() {
 
         int historySize = UserList.listGewichtTimeline.size();
@@ -127,6 +144,12 @@ public class TimelineActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Sie definiert die Daten für die Visualisierung des Graphen.
+     *
+     * @return die zu visualisierende Daten
+     *
+     */
     private static DataPoint[] getDataPoint2() {
 
         int historySize = UserList.listGewichtTimeline.size();
@@ -149,6 +172,9 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Gibt  die empfangene Daten als Json Format zurueck.
+     */
     private void getJson()
     {
        // loading = ProgressDialog.show(TimelineActivity.this, "Please Wait...",null,true,true);
@@ -157,6 +183,10 @@ public class TimelineActivity extends AppCompatActivity {
         onlineHelper.execute(type);
     }
 
+    /**
+     * Prueft, ob bei erneutem Aufruf Elemente in der Liste befinden
+     * und loescht sie gegebenenfalls.
+     */
     private static void checkUserList()
     {
         if (UserList.listGewichtTimeline.size() > 0)
@@ -170,11 +200,18 @@ public class TimelineActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Wandelt die empfangene Json Daten in String format um.
+     *
+     * @param jsonString die gegebene Json Daten
+     *
+     */
     public static void parse(String jsonString)
     {
         try
         {
             JSONObject jsonObject = new JSONObject(jsonString);
+            //Getting Json Array node
             JSONArray jsonArray = jsonObject.getJSONArray("timeline");
             int count = 0;
 

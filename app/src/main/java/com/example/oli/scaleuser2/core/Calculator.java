@@ -5,11 +5,25 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by Oli on 08.08.2017.
+ * Calculator ist verantwortlich für die Umrechnung
+ * verschiedenen Daten.
+ *
+ * @author Oliver Dziedzic, Mamoudou Balde
+ *
+ * @version 1.0
  */
 
 public class Calculator {
 
+    /**
+     * Rechnet das gegebene GeburtsDatum in Jahren um,
+     * und gibt den berechneten Wert zurueck.
+     *
+     * @param string_birthday das umzurechnende GeburtsDatum
+     *
+     * @return das Alter in Jahren
+     *
+     */
     public static long age_Calculator(String string_birthday)
     {
 
@@ -31,6 +45,17 @@ public class Calculator {
 
     }
 
+    /**
+     * Rechnet der BMI Wert mit den gegebenen Gewicht und Groesse aus,
+     * und gibt den berechneten BMI Wert zurueck.
+     *
+     * @param weight das gegebene Gewicht in Kg
+     *
+     * @param height die gegebene Groesse in cm
+     *
+     * @return der BMI Wert
+     *
+     */
     public static String BMI_Calculator(String weight, String height)
     {
         float calc_weight = Float.parseFloat(weight);
@@ -43,6 +68,21 @@ public class Calculator {
         return Float.toString(BMI);
     }
 
+    /**
+     * Rechnet der BMR Wert mit den gegebenen Gewicht, Groesse, Alter und Geschlecht aus,
+     * und gibt den berechneten BMR Wert zurueck.
+     *
+     * @param weight das gegebene Gewicht in Kg
+     *
+     * @param height die gegebene Groesse in cm
+     *
+     * @param age    das gegebene Alter
+     *
+     * @param gender das gegebene Geschlecht
+     *
+     * @return der BMR Wert
+     *
+     */
     public static String BMR_Calculator(String weight, String height, long age, String gender)
     {
         double BMR;
@@ -70,6 +110,17 @@ public class Calculator {
 
     }
 
+    /**
+     * Rechnet das ideale Gewicht mit den gegebenen Geschlecht und Groesse aus,
+     * und gibt den berechneten Wert zurueck.
+     *
+     * @param gender das gegebene Geschlecht
+     *
+     * @param height die gegebene Groesse
+     *
+     * @return das ideal Gewicht
+     *
+     */
     public static String idealWeight(String gender, String height)
     {
         double iW = 0.0;
@@ -90,7 +141,20 @@ public class Calculator {
 
     }
 
-    //Bedeutung der BMI Tabelle
+
+    /**
+     * Gibt die Bedeutung der BMI Wert mit den gegebenen Geschlecht, BMI
+     * und Alter zurueck.
+     *
+     * @param gender das gegebene Geschlecht
+     *
+     * @param bmi    der gegebene BMI Wert
+     *
+     * @param age    das gegebene Alter
+     *
+     * @return die Bedeutung der BMI Wert
+     *
+     */
     public static String bmiTable(String gender, String bmi, long age)
     {
         String res = "";
@@ -264,7 +328,6 @@ public class Calculator {
 
         else
         {
-            //float parse_bmi = Float.parseFloat(bmi);
             if(age>=18 && age<=24)
 
             {

@@ -19,7 +19,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by Mamoudou on 14.08.2017.
+ * Zur Visualisierung der Gewichtsdaten alle Benutzer in einem Community Graph.
+ *
+ * @author Oliver Dziedzic, Mamoudou Balde
+ *
+ * @version 1.0
  */
 
 public class CommunityActivity extends AppCompatActivity {
@@ -29,6 +33,14 @@ public class CommunityActivity extends AppCompatActivity {
 
     static String[] hLabels;
 
+    /**
+     * wird aufgerufen, wenn die Activity das erste mal erstellt wird.
+     * Views werden initialisiert und Diensten werden gestartet.
+     *
+     * @param savedInstanceState Über diesem Parameter können Werte aus der Activity
+     *                           zwischen gespeichert werden.
+     *
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_community);
@@ -44,6 +56,12 @@ public class CommunityActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Sie definiert die Daten für die Visualisierung des Graphen.
+     *
+     * @return die zu visualisierende Daten
+     *
+     */
     private static DataPoint[] getDataPoint() {
 
         int historySize = UserList.listGewichtCommunity.size();
@@ -76,6 +94,9 @@ public class CommunityActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Gibt  die empfangene Daten als Json Format zurueck.
+     */
     private void getJson()
     {
         String type = "getCommunity";
@@ -83,6 +104,11 @@ public class CommunityActivity extends AppCompatActivity {
         onlineHelper.execute(type);
     }
 
+    /**
+     * Wandelt die empfangene Json Daten in String format um.
+     *
+     * @param jsonString die gegebene Json Daten
+     */
     public static void parse(String jsonString)
     {
         try
@@ -128,6 +154,10 @@ public class CommunityActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Prueft, ob bei erneutem Aufruf Elemente in der Liste befinden
+     * und loescht sie gegebenenfalls.
+     */
     private static void checkUserList()
     {
         if (UserList.listGewichtCommunity.size() > 0)
